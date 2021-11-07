@@ -25,3 +25,9 @@
     margin-left: 2px;
     font-family: 'Zen Kurenaido', sans-serif;
 }
+
+@media screen and (max-width: 870px) {
+    .app-logo h1{
+        font-size: 35px;
+    }
+  }

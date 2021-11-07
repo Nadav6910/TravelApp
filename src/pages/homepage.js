@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar"
 import "../styling/homepage.css"
+import Searchinput from "../components/Searchinput"
 
 function Homepage() {
     return (
@@ -13,6 +14,7 @@ function Homepage() {
             Justo eget magna fermentum iaculis eu.
             Leo duis ut diam quam nulla. Ut tristique et egestas quis ipsum.
             Leo duis ut diam quam nulla. Ut tristique et egestas quis ipsum.
+            <Searchinput/>
           </p>
         </div>
       )
