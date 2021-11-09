@@ -1,8 +1,6 @@
 import "../styling/searchinput.css"
 import { usePlacesWidget } from "react-google-autocomplete";
 
-
-
 export default function Searchinput() {
 
     const { ref } = usePlacesWidget({
@@ -11,8 +9,10 @@ export default function Searchinput() {
       })
 
     return (
-        <div className="search-input">
+        <div className="search-input-container">
             <input className="search-input" ref={ref} placeholder="Where To.."></input>
+            <i class="fas fa-plane"></i>
+            {/* <FlightIcon/> */}
         </div>
     )
 }

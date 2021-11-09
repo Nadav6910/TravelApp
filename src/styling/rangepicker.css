@@ -1,0 +1,12 @@
+.range-picker:hover{
+    border-color: #ED6C02;
+}
+
+.range-picker:focus{
+    outline: 1px solid #ED6C02;
+    box-shadow: #ED6C02;
+}
+
+.datepicker{
+    display: inline;
+}

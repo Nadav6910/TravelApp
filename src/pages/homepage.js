@@ -1,6 +1,8 @@
 import Navbar from "../components/Navbar"
+import Footer from "../components/footer"
 import "../styling/homepage.css"
 import Searchinput from "../components/Searchinput"
+import DateRangePicker from "../components/Daterangepicker"
 
 function Homepage() {
     return (
@@ -14,8 +16,12 @@ function Homepage() {
             Justo eget magna fermentum iaculis eu.
             Leo duis ut diam quam nulla. Ut tristique et egestas quis ipsum.
             Leo duis ut diam quam nulla. Ut tristique et egestas quis ipsum.
+          </p>  
+          <div className="user-flight-form">
             <Searchinput/>
-          </p>
+            <DateRangePicker/>
+          </div>
+          <Footer/>
         </div>
       )
 }

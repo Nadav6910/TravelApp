@@ -3,8 +3,13 @@
 .about-us{
     text-align: center;
     margin-top: 50px;
+    margin-bottom: 180px;
     margin-left: 70px;
     margin-right: 70px;
     font-family: 'Source Sans Pro', sans-serif;
     color: rgb(95, 100, 104);
+}
+
+.user-flight-form{
+    text-align: center;
 }

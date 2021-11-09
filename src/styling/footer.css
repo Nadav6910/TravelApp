@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap');
+
+.footer-container{
+    background-color: #2647A0;
+    height: 45px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.creator-name{
+    display: inline;
+    margin-left: 5px;
+    color: #ED6C02;
+}
+
+.name-and-icon-container{
+    text-align: center;
+    margin-top: 12px;
+}
+
+.bi {
+    color: #ED6C02;
+}
