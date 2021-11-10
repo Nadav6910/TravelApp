@@ -13,6 +13,9 @@
    }
 
 .search-input{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     margin-right: -2.2rem;
     border: 1px solid #d9d9d9;
     border-radius: 2px;
@@ -21,6 +24,7 @@
     font-feature-settings: 'tnum', "tnum";
     line-height: 1.5715;
     padding: 6.5px 11px 6.5px;
+    padding-right: 30px;
     font-size: 16px;
     font-weight: 420;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -39,3 +43,12 @@
     color: #d9d9d9;
 }
 
+
+.fa-times-circle{
+    font-size: larger;
+}
+
+.fa-times-circle:hover{
+    cursor: pointer;
+    color: #a7a0a0;
+}
