@@ -45,14 +45,13 @@
 }
 
 .select-number-container{
-    /* display: inline-block; */
     position: relative;
     height: 165px;
     width: 210px;
     margin-top: 5px;
     background-color: #f7f4f4;
     box-shadow: 3px 3px 3px rgb(185, 184, 184);
-    left: 60.9%;
+    left: 61%;
 }
 
 .select-number-container:hover{
@@ -62,22 +61,60 @@
 .adults-span-container{
     position: relative;
     top: 20%;
-    right: 34%;
+    right: 20%;
 }
 
 .children-span-container{
     position: relative;
-    top: 38%;
-    right: 31%;
+    top: 22%;
+    right: 23%;
     
 }
 
 .adults-span{
     display: inline;
-    color: #706c6c;
+    position: relative;
+    right: 8px;
+    color: #969292;
 }
 
 .children-span{
     display: inline;
-    color: #706c6c;
+    color: #969292;
+    position: relative;
+    left: 4px;
+}
+
+.line-break{
+    position: relative;
+    top: 26%;
+    color: #969292;
+}
+
+.remove-icon{
+    position: relative;
+    color: #969292;
+    left: 23%;
+}
+
+.add-icon{
+    position: relative;
+    color: #969292;
+    left: 43%;
+}
+
+.remove-icon:hover{
+    cursor: pointer;
+    color: #a7a0a0;
+}
+
+.add-icon:hover{
+    cursor: pointer;
+    color: #bdb4b4;
+}
+
+.adults-selected{
+    position: relative;
+    color: #bdb4b4;
+    left: 33%;
 }
