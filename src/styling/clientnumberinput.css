@@ -1,8 +1,13 @@
-.search-input-container{
+.client-number-container{
     display: inline;
+    margin-left: 1px;
 }
 
-.search-input-container i {
+.client-number-container:hover{
+    cursor: pointer;
+}
+
+.client-number-container i {
     position:relative;
     left:-2px;
     padding:10px 10px;
@@ -11,7 +16,7 @@
     font-size: small;
    }
 
-.search-input{
+.number-input{
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -19,6 +24,7 @@
     border: 1px solid #d9d9d9;
     border-radius: 2px;
     background: #fff;
+    color: #d9d9d9;
     transition: border 0.3s, box-shadow 0.3s;
     font-feature-settings: 'tnum', "tnum";
     line-height: 1.5715;
@@ -29,19 +35,49 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-.search-input:hover{
+.number-input:hover{
     border-color: #ED6C02;
+    cursor: pointer;
 }
 
-.search-input:focus{
+.number-input:focus{
     outline: 1px solid #ED6C02;
 }
 
-.search-input::placeholder{
-    color: #d9d9d9;
+.select-number-container{
+    /* display: inline-block; */
+    position: relative;
+    height: 165px;
+    width: 210px;
+    margin-top: 5px;
+    background-color: #f7f4f4;
+    box-shadow: 3px 3px 3px rgb(185, 184, 184);
+    left: 60.9%;
 }
 
-.fa-times-circle:hover{
-    cursor: pointer;
-    color: #a7a0a0;
+.select-number-container:hover{
+    cursor: default;
+}
+
+.adults-span-container{
+    position: relative;
+    top: 20%;
+    right: 34%;
+}
+
+.children-span-container{
+    position: relative;
+    top: 38%;
+    right: 31%;
+    
+}
+
+.adults-span{
+    display: inline;
+    color: #706c6c;
+}
+
+.children-span{
+    display: inline;
+    color: #706c6c;
 }
