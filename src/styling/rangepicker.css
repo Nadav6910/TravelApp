@@ -10,3 +10,12 @@
 .datepicker{
     display: inline;
 }
+
+.ant-picker-range-separator{
+    margin-right: 15px;
+    margin-bottom: 6px;
+}
+
+.ant-picker-input{
+    left: 10px;
+}
