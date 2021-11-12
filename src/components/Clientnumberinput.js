@@ -3,6 +3,8 @@ import "../styling/clientnumberinput.css"
 import { useState } from "react"
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
+import { useDetectClickOutside } from 'react-detect-click-outside'
+
 
 export default function Clientnumberinput(){
 
@@ -12,6 +14,14 @@ export default function Clientnumberinput(){
 
     function ChangeWindowState(){
         SetWindowOpen(!WindowOpen)
+    }
+
+    const ref = useDetectClickOutside({
+        onTriggered: CloseWindowWhenNotFocused
+      });
+
+    function CloseWindowWhenNotFocused(){
+        SetWindowOpen(false)
     }
 
     function DecreseNumberAdults(){
@@ -35,8 +45,13 @@ export default function Clientnumberinput(){
     }
 
     return (
-        <div className="client-number-container">
-            <input onClick={ChangeWindowState} className="number-input" value={NumberOfAdults + ' Adult' + '  -  ' + NumberOfChildren + ' Children' }></input>
+        <div ref={ref} className="client-number-container">
+            <input 
+                // onBlur={CloseWindowWhenNotFocused}
+                onClick={ChangeWindowState} 
+                className="number-input" 
+                value={NumberOfAdults + ' Adult' + '  -  ' + NumberOfChildren + ' Children' }>
+            </input>
             <i class="fas fa-user"></i>
             {WindowOpen ? <div className="select-number-container">
                 <div className="adults-span-container">
