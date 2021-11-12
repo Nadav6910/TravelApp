@@ -21,7 +21,9 @@ export default function Clientnumberinput(){
       });
 
     function CloseWindowWhenNotFocused(){
-        SetWindowOpen(false)
+        if (!WindowOpen === true){
+            SetWindowOpen(false)
+        }
     }
 
     function DecreseNumberAdults(){
@@ -47,7 +49,7 @@ export default function Clientnumberinput(){
     return (
         <div ref={ref} className="client-number-container">
             <input 
-                // onBlur={CloseWindowWhenNotFocused}
+                onBlur={CloseWindowWhenNotFocused}
                 onClick={ChangeWindowState} 
                 className="number-input" 
                 value={NumberOfAdults + ' Adult' + '  -  ' + NumberOfChildren + ' Children' }>

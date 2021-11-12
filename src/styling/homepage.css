@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
 
+.homepage{
+    text-align: center;
+}
+
 .about-us{
     text-align: center;
     margin-top: 50px;
@@ -11,5 +15,6 @@
 }
 
 .user-flight-form{
+    display: inline-block;
     text-align: center;
 }

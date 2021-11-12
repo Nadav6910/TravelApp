@@ -1,13 +1,10 @@
 .client-number-container{
-    display: inline;
+    display: inline-block;
     margin-left: 1px;
 }
 
-.client-number-container:hover{
-    cursor: pointer;
-}
-
 .client-number-container i {
+    display: inline-block;
     position:relative;
     left:-2px;
     padding:10px 10px;
@@ -48,10 +45,10 @@
     position: relative;
     height: 165px;
     width: 210px;
+    left: 3px;
     margin-top: 5px;
     background-color: #f7f4f4;
     box-shadow: 3px 3px 3px rgb(185, 184, 184);
-    left: 61%;
 }
 
 .select-number-container:hover{

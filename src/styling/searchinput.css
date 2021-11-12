@@ -1,8 +1,10 @@
 .search-input-container{
-    display: inline;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .search-input-container i {
+    display: inline-block;
     position:relative;
     left:-2px;
     padding:10px 10px;

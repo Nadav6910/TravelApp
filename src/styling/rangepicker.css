@@ -8,11 +8,8 @@
 }
 
 .datepicker{
-    display: inline;
-}
-
-.datepicker:hover{
-    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .ant-picker-range-separator{
