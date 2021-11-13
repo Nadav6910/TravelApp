@@ -1,6 +1,7 @@
 .search-input-container{
     display: inline-block;
     vertical-align: top;
+    margin-left: 1px;
 }
 
 .search-input-container i {

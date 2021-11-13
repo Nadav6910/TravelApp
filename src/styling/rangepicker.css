@@ -24,3 +24,12 @@
 .ant-picker-input:hover{
     left: 10px;
 }
+
+.ant-picker-focused{
+    box-shadow: none;
+    border-color: #ED6C02;
+}
+
+.ant-picker-range .ant-picker-active-bar{
+    background-color: #ED6C02;
+}
