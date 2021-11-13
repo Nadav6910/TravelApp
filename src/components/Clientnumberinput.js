@@ -11,6 +11,7 @@ export default function Clientnumberinput(){
     const [WindowOpen, SetWindowOpen] = useState(false)
     const [NumberOfAdults, SetNumberOfAdults] = useState(2)
     const [NumberOfChildren, SetNumberOfChildren] = useState(0)
+    // const [fade, SetFade] = useState('select-number-container fade-in')
 
     function ChangeWindowState(){
         SetWindowOpen(!WindowOpen)
