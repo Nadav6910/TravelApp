@@ -1,8 +1,6 @@
 import "../styling/searchinput.css"
 import { usePlacesWidget } from "react-google-autocomplete";
 import { useState } from "react";
-import $ from 'jquery'
-
 
 export default function Searchinput() {
 
