@@ -1,6 +1,8 @@
 import "../styling/searchinput.css"
 import { usePlacesWidget } from "react-google-autocomplete";
 import { useState } from "react";
+import $ from 'jquery'
+
 
 export default function Searchinput() {
 
@@ -14,6 +16,13 @@ export default function Searchinput() {
     function DeleteText(){
         SetSearchInputValue('')
     }
+
+    // const inputWidth = $('.search-input-container').css('width')
+
+    // if ($('.search-input').length > 0 && $('#user_inp').val() !== ''){
+    //     $('.fa-times-circle').css('width', '15px')
+
+    // }
 
     return (
         <div className="search-input-container">

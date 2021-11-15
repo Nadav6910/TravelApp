@@ -4,6 +4,7 @@ import { useState } from "react"
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { useDetectClickOutside } from 'react-detect-click-outside'
+import $ from 'jquery'
 
 
 export default function Clientnumberinput(){
@@ -12,19 +13,30 @@ export default function Clientnumberinput(){
     const [NumberOfAdults, SetNumberOfAdults] = useState(2)
     const [NumberOfChildren, SetNumberOfChildren] = useState(0)
 
-    function ChangeWindowState(){
-        SetWindowOpen(!WindowOpen)
+    function ChangeAnimation(){
+        if ($('.select-number-container').css('animation-name') === 'fade-out'){
+            SetWindowOpen(false)
+        }
     }
 
+    function ChangeWindowState(){
+        if (WindowOpen === false){
+            SetWindowOpen(true)
+        } else {
+            $('.select-number-container').css('animation-name', 'fade-out')
+        }
+    }
+
+    function CloseWindowWhenNotFocused(){
+        if (!WindowOpen === true){
+            $('.select-number-container').css('animation-name', 'fade-out')
+        }
+    }
+    
     const ref = useDetectClickOutside({
         onTriggered: CloseWindowWhenNotFocused
       });
 
-    function CloseWindowWhenNotFocused(){
-        if (!WindowOpen === true){
-            SetWindowOpen(false)
-        }
-    }
 
     function DecreseNumberAdults(){
         if (NumberOfAdults > 1){
@@ -50,14 +62,16 @@ export default function Clientnumberinput(){
         <div ref={ref} className="client-number-container">
 
             <input 
+                readOnly
                 onBlur={CloseWindowWhenNotFocused}
                 onClick={ChangeWindowState} 
                 className="number-input" 
                 value={NumberOfAdults + ' Adult' + '  -  ' + NumberOfChildren + ' Children' }>
             </input>
-            <i class="fas fa-user"></i>
+            <i className="fas fa-user"></i>
 
-            {WindowOpen && <div className="select-number-container">
+            {WindowOpen && <div className="select-number-container" 
+            onAnimationEnd={ChangeAnimation}>
                 <div className="adults-span-container">
                     <p className="adults-span">Adults</p>
                     <RemoveCircleIcon onClick={DecreseNumberAdults} className="remove-icon" fontSize="small"/>

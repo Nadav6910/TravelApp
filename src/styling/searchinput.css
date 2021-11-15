@@ -2,6 +2,8 @@
     display: inline-block;
     vertical-align: top;
     margin-left: 1px;
+    min-width: 219.438;
+
 }
 
 .search-input-container i {
@@ -42,6 +44,11 @@
 
 .search-input::placeholder{
     color: #d9d9d9;
+}
+
+.fa-times-circle{
+    min-width: 15px;
+    width: 2.17rem;
 }
 
 .fa-times-circle:hover{
