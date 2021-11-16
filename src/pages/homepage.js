@@ -25,7 +25,6 @@ function Homepage() {
             <Searchinput/>
             <DateRangePicker/>
             <Clientnumberinput/>
-            {/* <br/> */}
             <Button className="search-btn" size="large" variant="outlined">Search</Button>
           </div>
 
