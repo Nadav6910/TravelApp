@@ -2,7 +2,13 @@ const express = require("express")
 const http = require('http')
 const app = express()
 const server = http.createServer(app)
-const cors = require ("cors")
+const cors = require("cors")
+// const axios = require('axios')
+
+//Get Requests **
+// app.get('http://localhost:4000/get_data', function(req, res){
+//   console.log(req, res);
+// })
 
 // App config **
 app.use(cors({ origin: "http://localhost:3000", credentials: true})) // Enable getting requests from client

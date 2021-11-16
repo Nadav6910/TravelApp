@@ -1,13 +1,17 @@
 /* eslint-disable no-useless-concat */
-import "../styling/clientnumberinput.css"
-import { useState } from "react"
+import '../styling/clientnumberinput.css'
+import { useState,useEffect } from 'react'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { useDetectClickOutside } from 'react-detect-click-outside'
 import $ from 'jquery'
 
 
-export default function Clientnumberinput(){
+export default function Clientnumberinput(props){
+
+    useEffect(() => {
+        props.GetValues(NumberOfAdults, NumberOfChildren)
+    })
 
     const [WindowOpen, SetWindowOpen] = useState(false)
     const [NumberOfAdults, SetNumberOfAdults] = useState(2)
@@ -37,14 +41,13 @@ export default function Clientnumberinput(){
         onTriggered: CloseWindowWhenNotFocused
       });
 
-
     function DecreseNumberAdults(){
         if (NumberOfAdults > 1){
             SetNumberOfAdults(NumberOfAdults - 1)
         }
     }
 
-    function DecreseNumberChildren(){
+     function DecreseNumberChildren(){
         if (NumberOfChildren > 0){
             SetNumberOfChildren(NumberOfChildren - 1)
         }
@@ -55,7 +58,7 @@ export default function Clientnumberinput(){
 }
 
     function IncreseNumberChildren(){
-            SetNumberOfChildren(NumberOfChildren + 1)
+        SetNumberOfChildren(NumberOfChildren + 1)
     }
 
     return (
@@ -72,6 +75,7 @@ export default function Clientnumberinput(){
 
             {WindowOpen && <div className="select-number-container" 
             onAnimationEnd={ChangeAnimation}>
+
                 <div className="adults-span-container">
                     <p className="adults-span">Adults</p>
                     <RemoveCircleIcon onClick={DecreseNumberAdults} className="remove-icon" fontSize="small"/>
