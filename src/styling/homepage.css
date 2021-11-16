@@ -18,3 +18,18 @@
     display: inline-block;
     text-align: center;
 }
+
+.css-9y1egq-MuiButtonBase-root-MuiButton-root.search-btn{
+    display: inline-block;
+    position: relative;
+    margin-left: 4px;
+    margin-bottom: 3px;
+    color: #ED6C02;
+    border-color: #ED6C02;
+    vertical-align: top;
+    height: calc(40px)
+}
+
+.css-9y1egq-MuiButtonBase-root-MuiButton-root.search-btn:hover{
+    border-color: #ED6C02;
+}

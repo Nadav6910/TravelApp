@@ -1,12 +1,14 @@
+import "../styling/homepage.css"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
-import "../styling/homepage.css"
 import Searchinput from "../components/Searchinput"
 import DateRangePicker from "../components/Daterangepicker"
 import Clientnumberinput from "../components/Clientnumberinput"
+import Button from '@mui/material/Button';
 
 function Homepage() {
     return (
+
         <div className="homepage">
           <Navbar/>
           <p className="about-us">
@@ -18,11 +20,15 @@ function Homepage() {
             Leo duis ut diam quam nulla. Ut tristique et egestas quis ipsum.
             Leo duis ut diam quam nulla. Ut tristique et egestas quis ipsum.
           </p>  
+
           <div className="user-flight-form">
             <Searchinput/>
             <DateRangePicker/>
             <Clientnumberinput/>
+            {/* <br/> */}
+            <Button className="search-btn" size="large" variant="outlined">Search</Button>
           </div>
+
           <Footer/>
         </div>
       )
