@@ -4,6 +4,7 @@ import { useState,useEffect } from 'react'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { useDetectClickOutside } from 'react-detect-click-outside'
+// import NumberOfChildrenMenu from './NumberOfChildrenMenu'
 import $ from 'jquery'
 
 
@@ -55,7 +56,7 @@ export default function Clientnumberinput(props){
 
     function IncreseNumberAdults(){
         SetNumberOfAdults(NumberOfAdults + 1)
-}
+    }
 
     function IncreseNumberChildren(){
         SetNumberOfChildren(NumberOfChildren + 1)
@@ -91,6 +92,7 @@ export default function Clientnumberinput(props){
                     <RemoveCircleIcon onClick={DecreseNumberChildren} className="remove-icon" fontSize="small"/>
                     <span className="adults-selected">{NumberOfChildren}</span>
                     <AddCircleIcon onClick={IncreseNumberChildren} className="add-icon" fontSize="small"/>
+                    {/* <NumberOfChildrenMenu className="select-children-age"/> */}
                 </div>
 
             </div>}
