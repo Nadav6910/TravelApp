@@ -4,7 +4,6 @@ import { useState,useEffect } from 'react'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { useDetectClickOutside } from 'react-detect-click-outside'
-// import NumberOfChildrenMenu from './NumberOfChildrenMenu'
 import $ from 'jquery'
 
 
@@ -12,11 +11,16 @@ export default function Clientnumberinput(props){
 
     useEffect(() => {
         props.GetValues(NumberOfAdults, NumberOfChildren)
+        if (NumberOfChildren === 0) {
+            $('.choose-child-age-container').css('display', 'none')
+            $('.select-number-container').css('height', '165px')
+        }
     })
 
     const [WindowOpen, SetWindowOpen] = useState(false)
     const [NumberOfAdults, SetNumberOfAdults] = useState(2)
     const [NumberOfChildren, SetNumberOfChildren] = useState(0)
+    const [AgeOfChild, SetAgeOfChild] = useState()
 
     function ChangeAnimation(){
         if ($('.select-number-container').css('animation-name') === 'fade-out'){
@@ -60,6 +64,8 @@ export default function Clientnumberinput(props){
 
     function IncreseNumberChildren(){
         SetNumberOfChildren(NumberOfChildren + 1)
+        $('.choose-child-age-container').css('display', 'inline')
+        $('.select-number-container').css('height', '200px')
     }
 
     return (
@@ -92,7 +98,32 @@ export default function Clientnumberinput(props){
                     <RemoveCircleIcon onClick={DecreseNumberChildren} className="remove-icon" fontSize="small"/>
                     <span className="adults-selected">{NumberOfChildren}</span>
                     <AddCircleIcon onClick={IncreseNumberChildren} className="add-icon" fontSize="small"/>
-                    {/* <NumberOfChildrenMenu className="select-children-age"/> */}
+                    <div className="choose-child-age-container">
+                        <br/>
+                        <br/>
+                        <p className="choose-age">Choose Age:</p>
+                        <select className="choose-age-dropdown" onChange={e => {SetAgeOfChild(e.target.value)}}> 
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                        </select>
+                    </div>
+                    <br/>
                 </div>
 
             </div>}

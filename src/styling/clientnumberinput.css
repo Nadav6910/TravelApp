@@ -141,3 +141,21 @@
     color: #bdb4b4;
     left: 33%;
 }
+
+.choose-child-age-container{
+    display: none;
+    position: relative;
+    left: 45px;
+}
+
+.choose-age-dropdown{
+    cursor: pointer;
+    color: #969292;
+}
+
+.choose-age{
+    display: inline-block;
+    position: relative;
+    color: #969292;
+    margin-right: 5px;
+}
