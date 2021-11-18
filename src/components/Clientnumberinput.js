@@ -14,7 +14,28 @@ export default function Clientnumberinput(props){
         if (NumberOfChildren === 0) {
             $('.choose-child-age-container').css('display', 'none')
             $('.select-number-container').css('height', '165px')
+            $('.children-span-container .remove-icon').css('color', '#d3cece')
+            $('.children-span-container .remove-icon').each(function(){
+                this.style.pointerEvents = 'none'
+            })
+        } else {
+            $('.children-span-container .remove-icon').css('color', '#969292')
+            $('.children-span-container .remove-icon').each(function(){
+                this.style.pointerEvents = 'auto'
+            })
         }
+        if (NumberOfAdults === 1){
+            $('.adults-span-container .remove-icon').css('color', '#d3cece')
+            $('.adults-span-container .remove-icon').each(function(){
+                this.style.pointerEvents = 'none'
+            })
+        } else {
+            $('.adults-span-container .remove-icon').css('color', '#969292')
+            $('.adults-span-container .remove-icon').each(function(){
+                this.style.pointerEvents = 'auto'
+            })
+        }
+        
     })
 
     const [WindowOpen, SetWindowOpen] = useState(false)
@@ -49,13 +70,17 @@ export default function Clientnumberinput(props){
     function DecreseNumberAdults(){
         if (NumberOfAdults > 1){
             SetNumberOfAdults(NumberOfAdults - 1)
-        }
+        } 
     }
 
      function DecreseNumberChildren(){
         if (NumberOfChildren > 0){
             SetNumberOfChildren(NumberOfChildren - 1)
         }
+        $('.children-span-container .add-icon').css('color', '#969292')
+        $('.children-span-container .add-icon').each(function(){
+            this.style.pointerEvents = 'auto'
+        })
     }
 
     function IncreseNumberAdults(){
@@ -66,6 +91,20 @@ export default function Clientnumberinput(props){
         SetNumberOfChildren(NumberOfChildren + 1)
         $('.choose-child-age-container').css('display', 'inline')
         $('.select-number-container').css('height', '200px')
+        $('.children-span-container .add-icon').css('color', '#d3cece')
+        $('.children-span-container .add-icon').each(function(){
+            this.style.pointerEvents = 'none'
+        })
+    }
+
+    function HandleChooseAge(event){
+        SetAgeOfChild(event.target.value)
+        $('.choose-child-age-container').css('display', 'none')
+        $('.select-number-container').css('height', '165px')
+        $('.children-span-container .add-icon').css('color', '#969292')
+        $('.children-span-container .add-icon').each(function(){
+            this.style.pointerEvents = 'auto'
+        })
     }
 
     return (
@@ -102,7 +141,8 @@ export default function Clientnumberinput(props){
                         <br/>
                         <br/>
                         <p className="choose-age">Choose Age:</p>
-                        <select className="choose-age-dropdown" onChange={e => {SetAgeOfChild(e.target.value)}}> 
+                        <select value={AgeOfChild} className="choose-age-dropdown" onChange={HandleChooseAge}>
+                            <option></option>
                             <option>0</option>
                             <option>1</option>
                             <option>2</option>
