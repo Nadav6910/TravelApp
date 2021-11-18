@@ -1,16 +1,18 @@
 /* eslint-disable no-useless-concat */
 import '../styling/clientnumberinput.css'
-import { useState,useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { useDetectClickOutside } from 'react-detect-click-outside'
 import $ from 'jquery'
 
-
 export default function Clientnumberinput(props){
 
     useEffect(() => {
         props.GetValues(NumberOfAdults, NumberOfChildren)
+    })
+
+    useLayoutEffect(() => {
         if (NumberOfChildren === 0) {
             $('.choose-child-age-container').css('display', 'none')
             $('.select-number-container').css('height', '165px')
@@ -35,7 +37,6 @@ export default function Clientnumberinput(props){
                 this.style.pointerEvents = 'auto'
             })
         }
-        
     })
 
     const [WindowOpen, SetWindowOpen] = useState(false)
@@ -141,7 +142,7 @@ export default function Clientnumberinput(props){
                         <br/>
                         <br/>
                         <p className="choose-age">Choose Age:</p>
-                        <select value={AgeOfChild} className="choose-age-dropdown" onChange={HandleChooseAge}>
+                        <select value={''} className="choose-age-dropdown" onChange={HandleChooseAge}>
                             <option></option>
                             <option>0</option>
                             <option>1</option>
