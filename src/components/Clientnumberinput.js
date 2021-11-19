@@ -4,48 +4,48 @@ import { useState, useEffect, useLayoutEffect } from 'react'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { useDetectClickOutside } from 'react-detect-click-outside'
-import $ from 'jquery'
 
 export default function Clientnumberinput(props){
 
-    useEffect(() => {
-        props.GetValues(NumberOfAdults, NumberOfChildren)
-    })
-
-    useLayoutEffect(() => {
-        if (NumberOfChildren === 0) {
-            $('.choose-child-age-container').css('display', 'none')
-            $('.select-number-container').css('height', '165px')
-            $('.children-span-container .remove-icon').css('color', '#d3cece')
-            $('.children-span-container .remove-icon').each(function(){
-                this.style.pointerEvents = 'none'
-            })
-        } else {
-            $('.children-span-container .remove-icon').css('color', '#969292')
-            $('.children-span-container .remove-icon').each(function(){
-                this.style.pointerEvents = 'auto'
-            })
-        }
-        if (NumberOfAdults === 1){
-            $('.adults-span-container .remove-icon').css('color', '#d3cece')
-            $('.adults-span-container .remove-icon').each(function(){
-                this.style.pointerEvents = 'none'
-            })
-        } else {
-            $('.adults-span-container .remove-icon').css('color', '#969292')
-            $('.adults-span-container .remove-icon').each(function(){
-                this.style.pointerEvents = 'auto'
-            })
-        }
-    })
-
     const [WindowOpen, SetWindowOpen] = useState(false)
+    const [containerAnimation, SetContainerAnimation] = useState(false)
+    const [fadeRemoveAdultsBtn, SetfadeRemoveAdultsBtn] = useState(false)
+    const [fadeRemoveChildrenBtn, SetfadeRemoveChildrenBtn] = useState(false)
+    const [fadeAddChildBtn, SetfadeAddChildBtn] = useState(false)
+    const [containerResize, SetcontainerResize] = useState(false)
+    const [enableAddChildrenOnClick, SetEnableAddChildrenOnClick] = useState(true)
+    const [ensableRemoveChildrenOnClick, SetEnsableRemoveChildrenOnClick] = useState(false)
+    const [enableRemoveAdultOnClick, SetEnableRemoveAdultOnClick] = useState(false)
+    const [showChooseChildAge, SetshowChooseChildAge] = useState(false)
     const [NumberOfAdults, SetNumberOfAdults] = useState(2)
     const [NumberOfChildren, SetNumberOfChildren] = useState(0)
     const [AgeOfChild, SetAgeOfChild] = useState()
 
+    useEffect(() => {
+        props.GetValues(NumberOfAdults, NumberOfChildren)
+    }, [props ,NumberOfAdults, NumberOfChildren])
+
+    useLayoutEffect(() => {
+        if (NumberOfChildren === 0) {
+            SetshowChooseChildAge(false)
+            SetcontainerResize(false)
+            SetfadeRemoveChildrenBtn(true)
+            SetEnsableRemoveChildrenOnClick(false)
+        } else {
+            SetfadeRemoveChildrenBtn(false)
+            SetEnsableRemoveChildrenOnClick(true)
+        }
+        if (NumberOfAdults === 1){
+            SetfadeRemoveAdultsBtn(true)
+            SetEnableRemoveAdultOnClick(false)
+        } else {
+            SetfadeRemoveAdultsBtn(false)
+            SetEnableRemoveAdultOnClick(true)
+        }
+    }, [fadeRemoveChildrenBtn, NumberOfAdults, NumberOfChildren])
+
     function ChangeAnimation(){
-        if ($('.select-number-container').css('animation-name') === 'fade-out'){
+        if (containerAnimation === true){
             SetWindowOpen(false)
         }
     }
@@ -53,14 +53,15 @@ export default function Clientnumberinput(props){
     function ChangeWindowState(){
         if (WindowOpen === false){
             SetWindowOpen(true)
+            SetContainerAnimation(false)
         } else {
-            $('.select-number-container').css('animation-name', 'fade-out')
+            SetContainerAnimation(true)
         }
     }
 
     function CloseWindowWhenNotFocused(){
         if (!WindowOpen === true){
-            $('.select-number-container').css('animation-name', 'fade-out')
+            SetContainerAnimation(true)
         }
     }
     
@@ -78,10 +79,10 @@ export default function Clientnumberinput(props){
         if (NumberOfChildren > 0){
             SetNumberOfChildren(NumberOfChildren - 1)
         }
-        $('.children-span-container .add-icon').css('color', '#969292')
-        $('.children-span-container .add-icon').each(function(){
-            this.style.pointerEvents = 'auto'
-        })
+        SetshowChooseChildAge(false)
+        SetcontainerResize(false)
+        SetfadeAddChildBtn(false)
+        SetEnableAddChildrenOnClick(true)
     }
 
     function IncreseNumberAdults(){
@@ -90,22 +91,18 @@ export default function Clientnumberinput(props){
 
     function IncreseNumberChildren(){
         SetNumberOfChildren(NumberOfChildren + 1)
-        $('.choose-child-age-container').css('display', 'inline')
-        $('.select-number-container').css('height', '200px')
-        $('.children-span-container .add-icon').css('color', '#d3cece')
-        $('.children-span-container .add-icon').each(function(){
-            this.style.pointerEvents = 'none'
-        })
+        SetshowChooseChildAge(true)
+        SetcontainerResize(true)
+        SetfadeAddChildBtn(true)
+        SetEnableAddChildrenOnClick(false)
     }
 
     function HandleChooseAge(event){
         SetAgeOfChild(event.target.value)
-        $('.choose-child-age-container').css('display', 'none')
-        $('.select-number-container').css('height', '165px')
-        $('.children-span-container .add-icon').css('color', '#969292')
-        $('.children-span-container .add-icon').each(function(){
-            this.style.pointerEvents = 'auto'
-        })
+        SetshowChooseChildAge(false)
+        SetcontainerResize(false)
+        SetfadeAddChildBtn(false)
+        SetEnableAddChildrenOnClick(true)
     }
 
     return (
@@ -121,13 +118,20 @@ export default function Clientnumberinput(props){
             <i className="fas fa-user"></i>
 
             {WindowOpen && <div className="select-number-container" 
-            onAnimationEnd={ChangeAnimation}>
+            onAnimationEnd={ChangeAnimation} style={{height: containerResize && '200px', animationName: containerAnimation && 'fade-out'}}>
 
                 <div className="adults-span-container">
                     <p className="adults-span">Adults</p>
-                    <RemoveCircleIcon onClick={DecreseNumberAdults} className="remove-icon" fontSize="small"/>
-                    <span className="adults-selected">{NumberOfAdults}</span>
-                    <AddCircleIcon onClick={IncreseNumberAdults} className="add-icon" fontSize="small"/>
+                    <RemoveCircleIcon 
+                        onClick={enableRemoveAdultOnClick && DecreseNumberAdults} 
+                        className="remove-icon" 
+                        style={{color: fadeRemoveAdultsBtn && '#d3cece', cursor: enableRemoveAdultOnClick ? 'pointer' : 'default'}} 
+                        fontSize="small"/>
+                        <span className="adults-selected">{NumberOfAdults}</span>
+                    <AddCircleIcon 
+                        onClick={IncreseNumberAdults} 
+                        className="add-icon" 
+                        fontSize="small"/>
                 </div>
 
                 <hr className="line-break"/>
@@ -135,10 +139,17 @@ export default function Clientnumberinput(props){
 
                 <div className="children-span-container">
                     <p className="children-span">Children</p>
-                    <RemoveCircleIcon onClick={DecreseNumberChildren} className="remove-icon" fontSize="small"/>
-                    <span className="adults-selected">{NumberOfChildren}</span>
-                    <AddCircleIcon onClick={IncreseNumberChildren} className="add-icon" fontSize="small"/>
-                    <div className="choose-child-age-container">
+                    <RemoveCircleIcon onClick={ensableRemoveChildrenOnClick && DecreseNumberChildren} 
+                        className="remove-icon" 
+                        style={{color: fadeRemoveChildrenBtn && '#d3cece', cursor: ensableRemoveChildrenOnClick ? 'pointer': 'default'}} 
+                        fontSize="small"/>
+                        <span className="adults-selected">{NumberOfChildren}</span>
+                    <AddCircleIcon onClick={enableAddChildrenOnClick && IncreseNumberChildren} 
+                        className="add-icon" 
+                        style={{color: fadeAddChildBtn && '#d3cece', cursor: enableAddChildrenOnClick ? 'pointer' : 'default'}} 
+                        fontSize="small"/>
+
+                    <div className="choose-child-age-container" style={{display: showChooseChildAge && 'inline'}}>
                         <br/>
                         <br/>
                         <p className="choose-age">Choose Age:</p>
@@ -164,6 +175,7 @@ export default function Clientnumberinput(props){
                             <option>17</option>
                         </select>
                     </div>
+
                     <br/>
                 </div>
 
