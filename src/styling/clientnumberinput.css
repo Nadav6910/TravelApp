@@ -159,3 +159,14 @@
     color: #969292;
     margin-right: 5px;
 }
+
+.chosen-children-ages-container{
+    position: relative;
+    display: none;
+    right: 162px;
+    bottom: 15px;
+    height: 80px;
+    width: 100px;
+    background-color: #f7f4f4;
+    box-shadow: 3px 3px 3px rgb(185, 184, 184);
+}

@@ -17,6 +17,7 @@ export default function Clientnumberinput(props){
     const [ensableRemoveChildrenOnClick, SetEnsableRemoveChildrenOnClick] = useState(false)
     const [enableRemoveAdultOnClick, SetEnableRemoveAdultOnClick] = useState(false)
     const [showChooseChildAge, SetshowChooseChildAge] = useState(false)
+    const [showChildAgesContainer, SetshowChildAgesContainer] = useState(false)
     const [NumberOfAdults, SetNumberOfAdults] = useState(2)
     const [NumberOfChildren, SetNumberOfChildren] = useState(0)
     const [AgeOfChildArray, SetAgeOfChildArray] = useState([])
@@ -26,11 +27,18 @@ export default function Clientnumberinput(props){
     }, [props ,NumberOfAdults, NumberOfChildren])
 
     useLayoutEffect(() => {
+        // console.log(AgeOfChildArray.length)
+        if (AgeOfChildArray.length === 0){
+            SetshowChildAgesContainer(false)
+            SetfadeRemoveChildrenBtn(true)
+            SetEnsableRemoveChildrenOnClick(false)
+        }
         if (NumberOfChildren === 0) {
             SetshowChooseChildAge(false)
             SetcontainerResize(false)
             SetfadeRemoveChildrenBtn(true)
             SetEnsableRemoveChildrenOnClick(false)
+            SetshowChildAgesContainer(false)
         } else {
             SetfadeRemoveChildrenBtn(false)
             SetEnsableRemoveChildrenOnClick(true)
@@ -42,7 +50,7 @@ export default function Clientnumberinput(props){
             SetfadeRemoveAdultsBtn(false)
             SetEnableRemoveAdultOnClick(true)
         }
-    }, [fadeRemoveChildrenBtn, NumberOfAdults, NumberOfChildren])
+    }, [fadeRemoveChildrenBtn, NumberOfAdults, NumberOfChildren, AgeOfChildArray, enableRemoveAdultOnClick])
 
     const optionsArray = []
 
@@ -84,7 +92,8 @@ export default function Clientnumberinput(props){
      function DecreseNumberChildren(){
         if (NumberOfChildren > 0){
             SetNumberOfChildren(NumberOfChildren - 1)
-        }
+            SetAgeOfChildArray(AgeOfChildArray.slice(0, -1))
+        } 
         SetshowChooseChildAge(false)
         SetcontainerResize(false)
         SetfadeAddChildBtn(false)
@@ -105,6 +114,7 @@ export default function Clientnumberinput(props){
 
     function HandleChooseAge(event){
         SetAgeOfChildArray(AgeOfChildArray.concat(event.target.value))
+        SetshowChildAgesContainer(true)
         SetshowChooseChildAge(false)
         SetcontainerResize(false)
         SetfadeAddChildBtn(false)
@@ -119,7 +129,7 @@ export default function Clientnumberinput(props){
                 onBlur={CloseWindowWhenNotFocused}
                 onClick={ChangeWindowState} 
                 className="number-input" 
-                value={NumberOfAdults + ' Adult' + '  -  ' + NumberOfChildren + ' Children' }>
+                value={NumberOfAdults + ' Adult' + '  -  ' + AgeOfChildArray.length + ' Children' }>
             </input>
             <i className="fas fa-user"></i>
 
@@ -149,7 +159,7 @@ export default function Clientnumberinput(props){
                         className="remove-icon" 
                         style={{color: fadeRemoveChildrenBtn && '#d3cece', cursor: ensableRemoveChildrenOnClick ? 'pointer': 'default'}} 
                         fontSize="small"/>
-                        <span className="adults-selected">{NumberOfChildren}</span>
+                        <span className="adults-selected">{AgeOfChildArray.length }</span>
                     <AddCircleIcon onClick={enableAddChildrenOnClick ? IncreseNumberChildren : undefined} 
                         className="add-icon" 
                         style={{color: fadeAddChildBtn && '#d3cece', cursor: enableAddChildrenOnClick ? 'pointer' : 'default'}} 
@@ -166,6 +176,10 @@ export default function Clientnumberinput(props){
                     </div>
 
                     <br/>
+                </div>
+
+                <div className="chosen-children-ages-container" style={{display: showChildAgesContainer && 'inline-block', bottom: showChooseChildAge && '50px'}}>
+                    {AgeOfChildArray.map((age, index) => {return <div key={index}>{age}</div>})}
                 </div>
 
             </div>}
