@@ -27,13 +27,14 @@ export default function Clientnumberinput(props){
     }, [props ,NumberOfAdults, NumberOfChildren])
 
     useLayoutEffect(() => {
-        // console.log(AgeOfChildArray.length)
+        SetNumberOfChildren(AgeOfChildArray.length)
+        
         if (AgeOfChildArray.length === 0){
             SetshowChildAgesContainer(false)
             SetfadeRemoveChildrenBtn(true)
             SetEnsableRemoveChildrenOnClick(false)
         }
-        if (NumberOfChildren === 0) {
+        if (AgeOfChildArray.length === 0) {
             SetshowChooseChildAge(false)
             SetcontainerResize(false)
             SetfadeRemoveChildrenBtn(true)
@@ -90,10 +91,7 @@ export default function Clientnumberinput(props){
     }
 
      function DecreseNumberChildren(){
-        if (NumberOfChildren > 0){
-            SetNumberOfChildren(NumberOfChildren - 1)
-            SetAgeOfChildArray(AgeOfChildArray.slice(0, -1))
-        } 
+        SetAgeOfChildArray(AgeOfChildArray.slice(0, -1))
         SetshowChooseChildAge(false)
         SetcontainerResize(false)
         SetfadeAddChildBtn(false)
@@ -105,7 +103,6 @@ export default function Clientnumberinput(props){
     }
 
     function IncreseNumberChildren(){
-        SetNumberOfChildren(NumberOfChildren + 1)
         SetshowChooseChildAge(true)
         SetcontainerResize(true)
         SetfadeAddChildBtn(true)

@@ -8,7 +8,7 @@ export default function Searchinput() {
 
     const { ref } = usePlacesWidget({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        onPlaceSelected: (place) => console.log(place)
+        onPlaceSelected: (place) => SetSearchInputValue(place.formatted_address)
       })
 
     function DeleteText(){
@@ -17,8 +17,13 @@ export default function Searchinput() {
 
     return (
         <div className="search-input-container">
-            <input onChange={e => SetSearchInputValue(e.target.value)} value={SearchInputValue} className="search-input" ref={ref} placeholder="Where To.."></input>
+            <input onChange={e => SetSearchInputValue(e.target.value)} 
+            value={SearchInputValue} 
+            className="search-input" 
+            ref={ref} 
+            placeholder="Where To.."></input>
             {SearchInputValue.length > 0 ? <i onClick={DeleteText} className="fas fa-times-circle"></i> : <i className="fas fa-plane"></i>}
+            {console.log(SearchInputValue)}
         </div>
     )
 }
