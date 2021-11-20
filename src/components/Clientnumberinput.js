@@ -19,7 +19,7 @@ export default function Clientnumberinput(props){
     const [showChooseChildAge, SetshowChooseChildAge] = useState(false)
     const [NumberOfAdults, SetNumberOfAdults] = useState(2)
     const [NumberOfChildren, SetNumberOfChildren] = useState(0)
-    const [AgeOfChild, SetAgeOfChild] = useState()
+    const [AgeOfChildArray, SetAgeOfChildArray] = useState([])
 
     useEffect(() => {
         props.GetValues(NumberOfAdults, NumberOfChildren)
@@ -43,6 +43,12 @@ export default function Clientnumberinput(props){
             SetEnableRemoveAdultOnClick(true)
         }
     }, [fadeRemoveChildrenBtn, NumberOfAdults, NumberOfChildren])
+
+    const optionsArray = []
+
+    for (let i = 0; i < 18; i++){
+        optionsArray.push(<option key={i}>{i}</option>)
+    }
 
     function ChangeAnimation(){
         if (containerAnimation === true){
@@ -98,7 +104,7 @@ export default function Clientnumberinput(props){
     }
 
     function HandleChooseAge(event){
-        SetAgeOfChild(event.target.value)
+        SetAgeOfChildArray(AgeOfChildArray.concat(event.target.value))
         SetshowChooseChildAge(false)
         SetcontainerResize(false)
         SetfadeAddChildBtn(false)
@@ -123,7 +129,7 @@ export default function Clientnumberinput(props){
                 <div className="adults-span-container">
                     <p className="adults-span">Adults</p>
                     <RemoveCircleIcon 
-                        onClick={enableRemoveAdultOnClick && DecreseNumberAdults} 
+                        onClick={enableRemoveAdultOnClick ? DecreseNumberAdults : undefined} 
                         className="remove-icon" 
                         style={{color: fadeRemoveAdultsBtn && '#d3cece', cursor: enableRemoveAdultOnClick ? 'pointer' : 'default'}} 
                         fontSize="small"/>
@@ -136,15 +142,15 @@ export default function Clientnumberinput(props){
 
                 <hr className="line-break"/>
                 <br/>
-
+                
                 <div className="children-span-container">
                     <p className="children-span">Children</p>
-                    <RemoveCircleIcon onClick={ensableRemoveChildrenOnClick && DecreseNumberChildren} 
+                    <RemoveCircleIcon onClick={ensableRemoveChildrenOnClick ? DecreseNumberChildren : undefined} 
                         className="remove-icon" 
                         style={{color: fadeRemoveChildrenBtn && '#d3cece', cursor: ensableRemoveChildrenOnClick ? 'pointer': 'default'}} 
                         fontSize="small"/>
                         <span className="adults-selected">{NumberOfChildren}</span>
-                    <AddCircleIcon onClick={enableAddChildrenOnClick && IncreseNumberChildren} 
+                    <AddCircleIcon onClick={enableAddChildrenOnClick ? IncreseNumberChildren : undefined} 
                         className="add-icon" 
                         style={{color: fadeAddChildBtn && '#d3cece', cursor: enableAddChildrenOnClick ? 'pointer' : 'default'}} 
                         fontSize="small"/>
@@ -155,24 +161,7 @@ export default function Clientnumberinput(props){
                         <p className="choose-age">Choose Age:</p>
                         <select value={''} className="choose-age-dropdown" onChange={HandleChooseAge}>
                             <option></option>
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                            <option>11</option>
-                            <option>12</option>
-                            <option>13</option>
-                            <option>14</option>
-                            <option>15</option>
-                            <option>16</option>
-                            <option>17</option>
+                            {optionsArray.map(option => {return option})}
                         </select>
                     </div>
 
