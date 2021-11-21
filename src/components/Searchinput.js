@@ -23,7 +23,6 @@ export default function Searchinput() {
             ref={ref} 
             placeholder="Where To.."></input>
             {SearchInputValue.length > 0 ? <i onClick={DeleteText} className="fas fa-times-circle"></i> : <i className="fas fa-plane"></i>}
-            {console.log(SearchInputValue)}
         </div>
     )
 }

@@ -18,6 +18,7 @@ export default function Clientnumberinput(props){
     const [enableRemoveAdultOnClick, SetEnableRemoveAdultOnClick] = useState(false)
     const [showChooseChildAge, SetshowChooseChildAge] = useState(false)
     const [showChildAgesContainer, SetshowChildAgesContainer] = useState(false)
+    const [showCrossSymbol, SetshowCrossSymbol] = useState(false)
     const [NumberOfAdults, SetNumberOfAdults] = useState(2)
     const [NumberOfChildren, SetNumberOfChildren] = useState(0)
     const [AgeOfChildArray, SetAgeOfChildArray] = useState([])
@@ -29,10 +30,8 @@ export default function Clientnumberinput(props){
     useLayoutEffect(() => {
         SetNumberOfChildren(AgeOfChildArray.length)
         
-        if (AgeOfChildArray.length === 0){
-            SetshowChildAgesContainer(false)
-            SetfadeRemoveChildrenBtn(true)
-            SetEnsableRemoveChildrenOnClick(false)
+        if (showChildAgesContainer === false){
+            SetshowCrossSymbol(false)
         }
         if (AgeOfChildArray.length === 0) {
             SetshowChooseChildAge(false)
@@ -40,6 +39,9 @@ export default function Clientnumberinput(props){
             SetfadeRemoveChildrenBtn(true)
             SetEnsableRemoveChildrenOnClick(false)
             SetshowChildAgesContainer(false)
+        } else if (AgeOfChildArray.length > 8){
+            SetfadeAddChildBtn(true)
+            SetEnableAddChildrenOnClick(false)
         } else {
             SetfadeRemoveChildrenBtn(false)
             SetEnsableRemoveChildrenOnClick(true)
@@ -51,7 +53,13 @@ export default function Clientnumberinput(props){
             SetfadeRemoveAdultsBtn(false)
             SetEnableRemoveAdultOnClick(true)
         }
-    }, [fadeRemoveChildrenBtn, NumberOfAdults, NumberOfChildren, AgeOfChildArray, enableRemoveAdultOnClick])
+    }, [fadeRemoveChildrenBtn, NumberOfAdults, NumberOfChildren, AgeOfChildArray, enableRemoveAdultOnClick, showChildAgesContainer])
+
+    const stylingForCross = `
+            .cross-symbol::before,
+            .cross-symbol::after {
+                display: flex;
+            }`
 
     const optionsArray = []
 
@@ -119,6 +127,7 @@ export default function Clientnumberinput(props){
     }
 
     return (
+
         <div ref={ref} className="client-number-container">
 
             <input 
@@ -175,8 +184,20 @@ export default function Clientnumberinput(props){
                     <br/>
                 </div>
 
-                <div className="chosen-children-ages-container" style={{display: showChildAgesContainer && 'inline-block', bottom: showChooseChildAge && '50px'}}>
-                    {AgeOfChildArray.map((age, index) => {return <div key={index}>{age}</div>})}
+                <div className="chosen-children-ages-container" style={{display: showChildAgesContainer && 'inline-grid', bottom: showChooseChildAge && '55px'}}>
+                    {AgeOfChildArray.map((age, index) => {
+                        return <div 
+                                  className={'child-age-preview'} 
+                                  onMouseEnter={() => {SetshowCrossSymbol(true)}}
+                                  onMouseLeave={() => {SetshowCrossSymbol(false)}}
+                                //   onClick={() => SetAgeOfChildArray(AgeOfChildArray.splice(index, 1))}
+                                  key={index}>
+                                  <div className="cross-symbol">
+                                    {showCrossSymbol && <style>{stylingForCross}</style>}
+                                    <span>{age}</span>
+                                  </div>
+                               </div>}
+                    )}
                 </div>
 
             </div>}
