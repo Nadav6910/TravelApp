@@ -30,7 +30,7 @@ export default function Clientnumberinput(props){
     useLayoutEffect(() => {
         SetNumberOfChildren(AgeOfChildArray.length)
         
-        if (showChildAgesContainer === false){
+        if (WindowOpen === false){
             SetshowCrossSymbol(false)
         }
         if (AgeOfChildArray.length === 0) {
@@ -53,7 +53,7 @@ export default function Clientnumberinput(props){
             SetfadeRemoveAdultsBtn(false)
             SetEnableRemoveAdultOnClick(true)
         }
-    }, [fadeRemoveChildrenBtn, NumberOfAdults, NumberOfChildren, AgeOfChildArray, enableRemoveAdultOnClick, showChildAgesContainer])
+    }, [fadeRemoveChildrenBtn, NumberOfAdults, NumberOfChildren, AgeOfChildArray, enableRemoveAdultOnClick, WindowOpen])
 
     const stylingForCross = `
             .cross-symbol::before,
@@ -126,6 +126,13 @@ export default function Clientnumberinput(props){
         SetEnableAddChildrenOnClick(true)
     }
 
+    function HandleDeleteAgeTag(event){
+        let selectedValue = event.target.innerText
+        // let selectedIndex = AgeOfChildArray.indexOf(selectedValue)
+        SetAgeOfChildArray(AgeOfChildArray.filter(age => selectedValue !== age))
+
+    }
+
     return (
 
         <div ref={ref} className="client-number-container">
@@ -190,7 +197,7 @@ export default function Clientnumberinput(props){
                                   className={'child-age-preview'} 
                                   onMouseEnter={() => {SetshowCrossSymbol(true)}}
                                   onMouseLeave={() => {SetshowCrossSymbol(false)}}
-                                //   onClick={() => SetAgeOfChildArray(AgeOfChildArray.splice(index, 1))}
+                                  onClick={HandleDeleteAgeTag}
                                   key={index}>
                                   <div className="cross-symbol">
                                     {showCrossSymbol && <style>{stylingForCross}</style>}
