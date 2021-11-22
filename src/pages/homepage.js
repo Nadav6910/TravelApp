@@ -12,6 +12,10 @@ function Homepage() {
 
   const [NumberOfAdults, SetNumberOfAdults] = useState(2)
   const [NumberOfChildren, SetNumberOfChildren] = useState(0)
+  const [AgeOfChildArray, SetAgeOfChildArray] = useState([])
+  const [StartDateInput, SetStartDateInput] = useState('')
+  const [EndDateInput, SetEndDateInput] = useState('')
+  const [SearchInputValue, SetSearchInputValue] = useState('')
 
     // axios.post('http://localhost:4000/get_data', {
     //   adultNumber: NumberOfAdults,
@@ -23,14 +27,24 @@ function Homepage() {
     // })
 
 
-    function GetValues(NumberOfAdults, NumberOfChildren){
+    function GetValues(NumberOfAdults, NumberOfChildren, AgeOfChildArray){
       SetNumberOfAdults(NumberOfAdults) 
       SetNumberOfChildren(NumberOfChildren)
+      SetAgeOfChildArray(AgeOfChildArray)
+    }
+
+    function GetDateValues(StartDateInput, EndDateInput){
+      SetStartDateInput(StartDateInput)
+      SetEndDateInput(EndDateInput)
+    }
+
+    function GetPlaceValue(SearchInputValue){
+      SetSearchInputValue(SearchInputValue)
     }
 
     function SendUserData(){
-      console.log(NumberOfAdults)
-      console.log(NumberOfChildren)
+      // console.log(NumberOfAdults)
+      // console.log(NumberOfChildren)
     }
 
 
@@ -50,13 +64,15 @@ function Homepage() {
 
           <div className="user-flight-form">
             <form onSubmit={SendUserData}>
-              <Searchinput/>
-              <DateRangePicker/>
+              <Searchinput GetPlaceValue={GetPlaceValue}/>
+              <DateRangePicker GetDateValues={GetDateValues}/>
               <Clientnumberinput GetValues={GetValues}/>
               <Button type="submit" className="search-btn" size="large" variant="outlined">Search</Button>
             </form>
           </div>
-
+          {console.log(NumberOfAdults, NumberOfChildren, AgeOfChildArray)}
+          {console.log(StartDateInput._i, EndDateInput._i)}
+          {console.log(SearchInputValue)}
           <Footer/>
         </div>
       )

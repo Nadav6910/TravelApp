@@ -2,12 +2,16 @@ import "antd/dist/antd.css"
 import "../styling/rangepicker.css"
 import { DatePicker, Space } from 'antd';
 import moment from 'moment';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function DateRangePicker() {
+export default function DateRangePicker(props) {
 
     const [StartDateInput, SetStartDateInput] = useState('')
     const [EndDateInput, SetEndDateInput] = useState('')
+
+    useEffect(() => {
+        props.GetDateValues(StartDateInput, EndDateInput)
+    }, [props, StartDateInput, EndDateInput])
 
     const state = {
         heureDebut: null,

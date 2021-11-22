@@ -27,8 +27,8 @@ export default function Clientnumberinput(props){
     const [AgeOfChildArray, SetAgeOfChildArray] = useState([])
 
     useEffect(() => {
-        props.GetValues(NumberOfAdults, NumberOfChildren)
-    }, [props ,NumberOfAdults, NumberOfChildren])
+        props.GetValues(NumberOfAdults, NumberOfChildren, AgeOfChildArray)
+    }, [props ,NumberOfAdults, NumberOfChildren, AgeOfChildArray])
 
     useLayoutEffect(() => {
         SetNumberOfChildren(AgeOfChildArray.length)
@@ -159,6 +159,9 @@ export default function Clientnumberinput(props){
         let selectedValue = event.target.innerText
         let selectedIndex = AgeOfChildArray.indexOf(selectedValue)
 
+        SetEnableAddChildrenOnClick(true)
+        SetfadeAddChildBtn(false)
+
         setTimeout(() => {
             SetAgeOfChildArray(AgeOfChildArray.filter((age, index) => selectedIndex !== index))
         }, 100); 
@@ -226,7 +229,11 @@ export default function Clientnumberinput(props){
 
                 <div className="chosen-children-ages-container" 
                 onAnimationEnd={ChangeAgesContainerAnimation}
-                style={{display: showChildAgesContainer && 'inline-grid', bottom: showChooseChildAge && '55px', animationName: agesContainerAnimation && 'fade-out-ages'}}>
+                style={{display: showChildAgesContainer && 'inline-grid', bottom: showChooseChildAge && '69px', animationName: agesContainerAnimation && 'fade-out-ages'}}>
+                <div className="p-hr-container">
+                <p className="choosen-children-p">Children Ages:</p>
+                <hr className="line-break-chosen-children"/>
+                </div>
                     {AgeOfChildArray.map((age, index) => {
                         return <div 
                                   className={'child-age-preview'} 

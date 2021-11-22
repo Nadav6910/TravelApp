@@ -1,10 +1,14 @@
 import "../styling/searchinput.css"
 import { usePlacesWidget } from "react-google-autocomplete";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
-export default function Searchinput() {
+export default function Searchinput(props) {
 
     const [SearchInputValue, SetSearchInputValue] = useState('')
+
+    useEffect(() => {
+        props.GetPlaceValue(SearchInputValue)
+    }, [props, SearchInputValue])
 
     const { ref } = usePlacesWidget({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,

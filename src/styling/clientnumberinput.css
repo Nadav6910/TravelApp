@@ -163,14 +163,14 @@
 .chosen-children-ages-container{
     position: relative;
     display: none;
-    right: 162px;
+    left: 162px;
     bottom: 20px;
-    height: 85px;
+    height: 118px;
     width: 100px;
     background-color: #f7f4f4;
     box-shadow: 3px 3px 3px rgb(185, 184, 184);
     grid-template-columns: repeat(3, 33px [col-start]);
-    grid-template-rows: repeat(3, 27px [col-start]);
+    grid-template-rows: repeat(3, 28px [col-start]);
     animation-name: fade-in-ages;
     animation-duration: 0.5s;
 }
@@ -202,9 +202,31 @@
     background-color: #3DB2FF;
     width: 25px;
     text-align: center;
+    align-self: center;
     border-radius: 6px;
     margin-top: 5px;
 }
+
+.p-hr-container{
+    display: grid;
+    font-size: small;
+    grid-column-start: span 3;
+    color: #969292;
+    align-self: center;
+    margin: 0;
+}
+
+ .choosen-children-p{
+    margin: 0;
+    margin-left: 4px;
+}
+
+.line-break-chosen-children{
+    display: grid;
+    grid-column-start: span 3;
+    align-self: start;
+    margin: 0;
+} 
 
 .child-age-preview:hover{
     cursor: pointer;
