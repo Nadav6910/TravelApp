@@ -9,11 +9,14 @@ export default function Clientnumberinput(props){
 
     const [WindowOpen, SetWindowOpen] = useState(false)
     const [containerAnimation, SetContainerAnimation] = useState(false)
+    const [agesContainerAnimation, SetAgesContainerAnimation] = useState(false)
     const [fadeRemoveAdultsBtn, SetfadeRemoveAdultsBtn] = useState(false)
+    const [fadeAddAdultsBtn, SetfadeAddAdultsBtn] = useState(false)
     const [fadeRemoveChildrenBtn, SetfadeRemoveChildrenBtn] = useState(false)
     const [fadeAddChildBtn, SetfadeAddChildBtn] = useState(false)
     const [containerResize, SetcontainerResize] = useState(false)
     const [enableAddChildrenOnClick, SetEnableAddChildrenOnClick] = useState(true)
+    const [enableAddAdultsOnClick, SetEnableAddAdultsOnClick] = useState(true)
     const [ensableRemoveChildrenOnClick, SetEnsableRemoveChildrenOnClick] = useState(false)
     const [enableRemoveAdultOnClick, SetEnableRemoveAdultOnClick] = useState(false)
     const [showChooseChildAge, SetshowChooseChildAge] = useState(false)
@@ -29,16 +32,28 @@ export default function Clientnumberinput(props){
 
     useLayoutEffect(() => {
         SetNumberOfChildren(AgeOfChildArray.length)
-        
-        if (WindowOpen === false){
-            SetshowCrossSymbol(false)
+
+        if (WindowOpen === false && AgeOfChildArray.length > 0){
+            SetshowChildAgesContainer(true)
+            SetAgesContainerAnimation(false)
         }
+
+        if (showChildAgesContainer === false){
+            SetEnableAddChildrenOnClick(true)
+            SetfadeAddChildBtn(false)
+        } 
+
+        if (showChildAgesContainer === true && AgeOfChildArray.length > 0){
+            SetAgesContainerAnimation(false)
+        } else {
+            SetAgesContainerAnimation(true)
+        }
+
         if (AgeOfChildArray.length === 0) {
             SetshowChooseChildAge(false)
             SetcontainerResize(false)
             SetfadeRemoveChildrenBtn(true)
             SetEnsableRemoveChildrenOnClick(false)
-            SetshowChildAgesContainer(false)
         } else if (AgeOfChildArray.length > 8){
             SetfadeAddChildBtn(true)
             SetEnableAddChildrenOnClick(false)
@@ -46,14 +61,20 @@ export default function Clientnumberinput(props){
             SetfadeRemoveChildrenBtn(false)
             SetEnsableRemoveChildrenOnClick(true)
         }
+        
         if (NumberOfAdults === 1){
             SetfadeRemoveAdultsBtn(true)
             SetEnableRemoveAdultOnClick(false)
+        } else if (NumberOfAdults > 8){
+            SetfadeAddAdultsBtn(true)
+            SetEnableAddAdultsOnClick(false)
         } else {
             SetfadeRemoveAdultsBtn(false)
             SetEnableRemoveAdultOnClick(true)
+            SetfadeAddAdultsBtn(false)
+            SetEnableAddAdultsOnClick(true)
         }
-    }, [fadeRemoveChildrenBtn, NumberOfAdults, NumberOfChildren, AgeOfChildArray, enableRemoveAdultOnClick, WindowOpen])
+    }, [fadeRemoveChildrenBtn, NumberOfAdults, NumberOfChildren, AgeOfChildArray, enableRemoveAdultOnClick, WindowOpen, showChildAgesContainer])
 
     const stylingForCross = `
             .cross-symbol::before,
@@ -73,6 +94,12 @@ export default function Clientnumberinput(props){
         }
     }
 
+    function ChangeAgesContainerAnimation(){
+        if (agesContainerAnimation === true){
+            SetshowChildAgesContainer(false)
+        }
+    }
+
     function ChangeWindowState(){
         if (WindowOpen === false){
             SetWindowOpen(true)
@@ -85,6 +112,7 @@ export default function Clientnumberinput(props){
     function CloseWindowWhenNotFocused(){
         if (!WindowOpen === true){
             SetContainerAnimation(true)
+            SetAgesContainerAnimation(true)
         }
     }
     
@@ -119,6 +147,7 @@ export default function Clientnumberinput(props){
 
     function HandleChooseAge(event){
         SetAgeOfChildArray(AgeOfChildArray.concat(event.target.value))
+        SetshowCrossSymbol(false)
         SetshowChildAgesContainer(true)
         SetshowChooseChildAge(false)
         SetcontainerResize(false)
@@ -128,9 +157,12 @@ export default function Clientnumberinput(props){
 
     function HandleDeleteAgeTag(event){
         let selectedValue = event.target.innerText
-        // let selectedIndex = AgeOfChildArray.indexOf(selectedValue)
-        SetAgeOfChildArray(AgeOfChildArray.filter(age => selectedValue !== age))
+        let selectedIndex = AgeOfChildArray.indexOf(selectedValue)
 
+        setTimeout(() => {
+            SetAgeOfChildArray(AgeOfChildArray.filter((age, index) => selectedIndex !== index))
+        }, 100); 
+        SetshowCrossSymbol(false)
     }
 
     return (
@@ -158,7 +190,8 @@ export default function Clientnumberinput(props){
                         fontSize="small"/>
                         <span className="adults-selected">{NumberOfAdults}</span>
                     <AddCircleIcon 
-                        onClick={IncreseNumberAdults} 
+                        style={{color: fadeAddAdultsBtn && '#d3cece', cursor: enableAddAdultsOnClick ? 'pointer' : 'default'}}
+                        onClick={enableAddAdultsOnClick ? IncreseNumberAdults : undefined} 
                         className="add-icon" 
                         fontSize="small"/>
                 </div>
@@ -191,7 +224,9 @@ export default function Clientnumberinput(props){
                     <br/>
                 </div>
 
-                <div className="chosen-children-ages-container" style={{display: showChildAgesContainer && 'inline-grid', bottom: showChooseChildAge && '55px'}}>
+                <div className="chosen-children-ages-container" 
+                onAnimationEnd={ChangeAgesContainerAnimation}
+                style={{display: showChildAgesContainer && 'inline-grid', bottom: showChooseChildAge && '55px', animationName: agesContainerAnimation && 'fade-out-ages'}}>
                     {AgeOfChildArray.map((age, index) => {
                         return <div 
                                   className={'child-age-preview'} 
@@ -203,8 +238,8 @@ export default function Clientnumberinput(props){
                                     {showCrossSymbol && <style>{stylingForCross}</style>}
                                     <span>{age}</span>
                                   </div>
-                               </div>}
-                    )}
+                               </div>})       
+                    }
                 </div>
 
             </div>}
