@@ -1,11 +1,18 @@
 import "../styling/searchinput.css"
 import { usePlacesWidget } from "react-google-autocomplete";
 import { useState,useEffect } from "react";
+import $ from "jquery"
 
 export default function Searchinput(props) {
 
+    
     const [searchInputValueFrom, SetSearchInputValueFrom] = useState('')
     const [searchInputValueTo, SetSearchInputValueTo] = useState('')
+
+   useEffect(() => {
+     $.getJSON(`https://ipgeolocation.abstractapi.com/v1/?api_key=${process.env.REACT_APP_ABSTRACT_GEOLOCATION_API_KEY}`, function(data) {
+        SetSearchInputValueFrom(data.city + ', ' + data.country)})
+    }, [])
 
     useEffect(() => {
         props.GetPlaceValue(searchInputValueFrom, searchInputValueTo)
