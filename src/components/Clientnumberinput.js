@@ -10,6 +10,7 @@ export default function Clientnumberinput(props){
     const [WindowOpen, SetWindowOpen] = useState(false)
     const [containerAnimation, SetContainerAnimation] = useState(false)
     const [agesContainerAnimation, SetAgesContainerAnimation] = useState(false)
+    const [openAgeContainerIconAnimation, SetOpenAgeContainerIconAnimation] = useState('fas fa-user open-child-container-icon')
     const [fadeRemoveAdultsBtn, SetfadeRemoveAdultsBtn] = useState(false)
     const [fadeAddAdultsBtn, SetfadeAddAdultsBtn] = useState(false)
     const [fadeRemoveChildrenBtn, SetfadeRemoveChildrenBtn] = useState(false)
@@ -32,10 +33,11 @@ export default function Clientnumberinput(props){
 
     useLayoutEffect(() => {
         SetNumberOfChildren(AgeOfChildArray.length)
+        SetOpenAgeContainerIconAnimation('fas fa-user open-child-container-icon')
 
         if (WindowOpen === false && AgeOfChildArray.length > 0){
             SetshowChildAgesContainer(true)
-            SetAgesContainerAnimation(false)
+            SetAgesContainerAnimation(true)
         }
 
         if (showChildAgesContainer === false){
@@ -97,15 +99,19 @@ export default function Clientnumberinput(props){
     function ChangeAgesContainerAnimation(){
         if (agesContainerAnimation === true){
             SetshowChildAgesContainer(false)
+        } else {
+            SetshowChildAgesContainer(true)
         }
     }
 
     function ChangeWindowState(){
         if (WindowOpen === false){
             SetWindowOpen(true)
+            SetshowChildAgesContainer(false)
             SetContainerAnimation(false)
         } else {
             SetContainerAnimation(true)
+            SetAgesContainerAnimation(true)
         }
     }
 
@@ -148,7 +154,10 @@ export default function Clientnumberinput(props){
     function HandleChooseAge(event){
         SetAgeOfChildArray(AgeOfChildArray.concat(event.target.value))
         SetshowCrossSymbol(false)
-        SetshowChildAgesContainer(true)
+        setTimeout(() => {
+            SetOpenAgeContainerIconAnimation('fas fa-user open-child-container-icon-animated')
+        }, 300)
+        SetOpenAgeContainerIconAnimation('fas fa-user open-child-container-icon')
         SetshowChooseChildAge(false)
         SetcontainerResize(false)
         SetfadeAddChildBtn(false)
@@ -168,6 +177,19 @@ export default function Clientnumberinput(props){
         SetshowCrossSymbol(false)
     }
 
+    function HandleClickOnIconForChildrenAgesContainer(){
+        if (AgeOfChildArray.length === 0){
+            return null
+        }
+        if (agesContainerAnimation === false){
+            SetAgesContainerAnimation(true)
+        } 
+        if (agesContainerAnimation === true){
+            SetAgesContainerAnimation(false)
+            SetshowChildAgesContainer(true)
+        }
+    }
+
     return (
 
         <div ref={ref} className="client-number-container">
@@ -177,7 +199,7 @@ export default function Clientnumberinput(props){
                 onBlur={CloseWindowWhenNotFocused}
                 onClick={ChangeWindowState} 
                 className="number-input" 
-                value={NumberOfAdults + ' Adult' + '  -  ' + AgeOfChildArray.length + ' Children' }>
+                value={NumberOfAdults + ' Adults' + '  -  ' + AgeOfChildArray.length + ' Children' }>
             </input>
             <i className="fas fa-user"></i>
 
@@ -202,7 +224,8 @@ export default function Clientnumberinput(props){
                 <hr className="line-break"/>
                 <br/>
                 
-                <div className="children-span-container">
+                <div className="children-span-container" 
+                style={{top: showChooseChildAge && '18.5%', right: showChooseChildAge && '22%'}}>
                     <p className="children-span">Children</p>
                     <RemoveCircleIcon onClick={ensableRemoveChildrenOnClick ? DecreseNumberChildren : undefined} 
                         className="remove-icon" 
@@ -224,12 +247,18 @@ export default function Clientnumberinput(props){
                         </select>
                     </div>
 
+                    
+                    <div className="open-child-ages-container-icon-div" 
+                    style={{top: showChooseChildAge && '0', left: showChooseChildAge && '70px'}}>
+                        <i onClick={HandleClickOnIconForChildrenAgesContainer} className={openAgeContainerIconAnimation}></i>
+                    </div>
+                    
                     <br/>
                 </div>
 
                 <div className="chosen-children-ages-container" 
                 onAnimationEnd={ChangeAgesContainerAnimation}
-                style={{display: showChildAgesContainer && 'inline-grid', bottom: showChooseChildAge && '69px', animationName: agesContainerAnimation && 'fade-out-ages'}}>
+                style={{display: showChildAgesContainer && 'inline-grid', bottom: showChooseChildAge && '73px', animationName: agesContainerAnimation && 'fade-out-ages'}}>
                 <div className="p-hr-container">
                 <p className="choosen-children-p">Children Ages:</p>
                 <hr className="line-break-chosen-children"/>

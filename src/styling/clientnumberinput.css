@@ -89,9 +89,8 @@
 
 .children-span-container{
     position: relative;
-    top: 22%;
-    right: 23%;
-    
+    top: 18%;
+    right: 15.1%;
 }
 
 .adults-span{
@@ -164,7 +163,7 @@
     position: relative;
     display: none;
     left: 162px;
-    bottom: 20px;
+    bottom: 30px;
     height: 118px;
     width: 100px;
     background-color: #f7f4f4;
@@ -258,4 +257,45 @@
 
 .cross-symbol::after{   
     transform: rotate(-45deg);
+}
+
+.open-child-ages-container-icon-div{
+    display: inline-block;
+    position: relative;
+    left: 67px;
+    top: 27px;
+}
+
+.fas.fa-user.open-child-container-icon{
+    margin-left: 0;
+    color: #969292;
+}
+
+.fas.fa-user.open-child-container-icon-animated{
+    margin-left: 0;
+    color: #969292;
+    animation-name: zoom;
+    animation-duration: 1s;
+}
+
+@keyframes zoom {
+  0%   {transform:scale(1)} 
+  10%  {transform:scale(1.2)} 
+  20%  {transform:scale(1.5)} 
+  30% {transform:scale(1.7)}
+  40% {transform:scale(2)}
+  50% {transform:scale(1.7)}
+  60% {transform:scale(1.5)} 
+  70% {transform:scale(1.2)} 
+  80% {transform:scale(1)} 
+  90% {transform:scale(1)} 
+  100% {transform:scale(1)}       
+}
+
+.fas.fa-user.open-child-container-icon:hover{
+    color: #bdb4b4;
+}
+
+.fas.fa-user.open-child-container-icon-animated:hover{
+    color: #bdb4b4;
 }

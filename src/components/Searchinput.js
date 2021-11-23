@@ -4,29 +4,47 @@ import { useState,useEffect } from "react";
 
 export default function Searchinput(props) {
 
-    const [SearchInputValue, SetSearchInputValue] = useState('')
+    const [searchInputValueFrom, SetSearchInputValueFrom] = useState('')
+    const [searchInputValueTo, SetSearchInputValueTo] = useState('')
 
     useEffect(() => {
-        props.GetPlaceValue(SearchInputValue)
-    }, [props, SearchInputValue])
+        props.GetPlaceValue(searchInputValueFrom, searchInputValueTo)
+    }, [props, searchInputValueFrom, searchInputValueTo])
 
     const { ref } = usePlacesWidget({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        onPlaceSelected: (place) => SetSearchInputValue(place.formatted_address)
+        onPlaceSelected: (placeFrom) => SetSearchInputValueFrom(placeFrom.formatted_address)
       })
+ 
+    // const { ref } = usePlacesWidget({
+    //     apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    //     onPlaceSelected: (placeTo) => SetSearchInputValueTo(placeTo.formatted_address)
+    // })
 
-    function DeleteText(){
-        SetSearchInputValue('')
+    function DeleteTextFrom(){
+        SetSearchInputValueFrom('')
+    }
+
+    function DeleteTextTo(){
+        SetSearchInputValueTo('')
     }
 
     return (
         <div className="search-input-container">
-            <input onChange={e => SetSearchInputValue(e.target.value)} 
-            value={SearchInputValue} 
-            className="search-input" 
+            <input onChange={e => SetSearchInputValueFrom(e.target.value)} 
+            value={searchInputValueFrom} 
+            className="search-input-from" 
             ref={ref} 
-            placeholder="Where To.."></input>
-            {SearchInputValue.length > 0 ? <i onClick={DeleteText} className="fas fa-times-circle"></i> : <i className="fas fa-plane"></i>}
+            placeholder="From.."></input>
+            {searchInputValueFrom.length > 0 ? <i onClick={DeleteTextFrom} className="fas fa-times-circle"></i> : <i className="fas fa-plane"></i>}
+
+            <input onChange={e => SetSearchInputValueTo(e.target.value)} 
+            value={searchInputValueTo} 
+            className="search-input-to" 
+            // ref={ref}
+            placeholder="To.."></input>
+            {searchInputValueTo.length > 0 ? <i onClick={DeleteTextTo} className="fas fa-times-circle"></i> : <i className="fas fa-plane"></i>}
         </div>
+        
     )
 }

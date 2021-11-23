@@ -15,7 +15,8 @@ function Homepage() {
   const [AgeOfChildArray, SetAgeOfChildArray] = useState([])
   const [StartDateInput, SetStartDateInput] = useState('')
   const [EndDateInput, SetEndDateInput] = useState('')
-  const [SearchInputValue, SetSearchInputValue] = useState('')
+  const [searchInputValueFrom, SetSearchInputValueFrom] = useState('')
+  const [searchInputValueTo, SetSearchInputValueTo] = useState('')
 
     // axios.post('http://localhost:4000/get_data', {
     //   adultNumber: NumberOfAdults,
@@ -38,8 +39,9 @@ function Homepage() {
       SetEndDateInput(EndDateInput)
     }
 
-    function GetPlaceValue(SearchInputValue){
-      SetSearchInputValue(SearchInputValue)
+    function GetPlaceValue(searchInputValueFrom, searchInputValueTo){
+      SetSearchInputValueFrom(searchInputValueFrom)
+      SetSearchInputValueTo(searchInputValueTo)
     }
 
     function SendUserData(){
@@ -72,7 +74,7 @@ function Homepage() {
           </div>
           {console.log(NumberOfAdults, NumberOfChildren, AgeOfChildArray)}
           {console.log(StartDateInput._i, EndDateInput._i)}
-          {console.log(SearchInputValue)}
+          {console.log(searchInputValueFrom, searchInputValueTo)}
           <Footer/>
         </div>
       )

@@ -16,7 +16,8 @@
     font-size: small;
    }
 
-.search-input{
+.search-input-from, .search-input-to{
+    width: 150px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -34,15 +35,15 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-.search-input:hover{
+.search-input-from:hover, .search-input-to:hover{
     border-color: #ED6C02;
 }
 
-.search-input:focus{
+.search-input-from:focus, .search-input-to:focus{
     outline: 1px solid #ED6C02;
 }
 
-.search-input::placeholder{
+.search-input-from::placeholder, .search-input-to::placeholder{
     color: #d9d9d9;
 }
 
