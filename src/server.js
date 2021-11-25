@@ -1,14 +1,14 @@
 const express = require("express")
+require("dotenv").config({path:'/Users/nadavs/Documents/WebDevelopment/travelapp/.env'});
 const http = require('http')
 const app = express()
 const server = http.createServer(app)
 const cors = require("cors")
+// const fs = require('fs')
 // const axios = require('axios')
 
-//Get Requests **
-// app.get('http://localhost:4000/get_data', function(req, res){
-//   console.log(req, res);
-// })
+// const cityCodesDataRaw = fs.readFileSync('./citycodes.json', 'utf8')
+// const cityCodesData = JSON.parse(cityCodesDataRaw)
 
 // App config **
 app.use(cors({ origin: "http://localhost:3000", credentials: true})) // Enable getting requests from client
