@@ -10,6 +10,8 @@ const cors = require("cors")
 // const cityCodesDataRaw = fs.readFileSync('./citycodes.json', 'utf8')
 // const cityCodesData = JSON.parse(cityCodesDataRaw)
 
+// console.log(cityCodesData.filter(entry => entry.city === 'Tel Aviv'))
+
 // App config **
 app.use(cors({ origin: "http://localhost:3000", credentials: true})) // Enable getting requests from client
 app.use(express.static("public"));
