@@ -25,7 +25,7 @@ app.post('/get-data', (req, res) => {
     params: {q: searchInputValueFrom.split(',').shift(), limit: '10'},
     headers: {
       'x-rapidapi-host': 'aerodatabox.p.rapidapi.com',
-      'x-rapidapi-key': 'b8b860b3b8msh5c1c9fa9d121e2ep120f54jsn6102f1527160'
+      'x-rapidapi-key': process.env.REACT_APP_RAPID_API_AERODATABOX_API_KEY
     }
   }
 
@@ -35,7 +35,7 @@ app.post('/get-data', (req, res) => {
     params: {q: searchInputValueTo.split(',').shift(), limit: '10'},
     headers: {
       'x-rapidapi-host': 'aerodatabox.p.rapidapi.com',
-      'x-rapidapi-key': 'b8b860b3b8msh5c1c9fa9d121e2ep120f54jsn6102f1527160'
+      'x-rapidapi-key': process.env.REACT_APP_RAPID_API_AERODATABOX_API_KEY
     }
   }
 
@@ -45,7 +45,7 @@ app.post('/get-data', (req, res) => {
     axios.request(airportDataTo).then(function (response) {
       searchInputValueTo = response.data.items[0].iata
       console.log(NumberOfAdults, NumberOfChildren, AgeOfChildArray, StartDateInput, EndDateInput, searchInputValueFrom, searchInputValueTo)
-      
+
     }).catch(function (error) {
       console.error(error);
     });
