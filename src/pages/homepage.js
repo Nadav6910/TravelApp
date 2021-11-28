@@ -6,27 +6,17 @@ import Searchinput from "../components/Searchinput"
 import DateRangePicker from "../components/Daterangepicker"
 import Clientnumberinput from "../components/Clientnumberinput"
 import Button from '@mui/material/Button'
-// import axios from "axios"
+import axios from "axios"
 
 function Homepage() {
 
-  const [NumberOfAdults, SetNumberOfAdults] = useState(2)
-  const [NumberOfChildren, SetNumberOfChildren] = useState(0)
-  const [AgeOfChildArray, SetAgeOfChildArray] = useState([])
-  const [StartDateInput, SetStartDateInput] = useState('')
-  const [EndDateInput, SetEndDateInput] = useState('')
-  const [searchInputValueFrom, SetSearchInputValueFrom] = useState('')
-  const [searchInputValueTo, SetSearchInputValueTo] = useState('')
-
-    // axios.post('http://localhost:4000/get_data', {
-    //   adultNumber: NumberOfAdults,
-    //   childNumber: NumberOfChildren
-    // }).then((response) => {
-    //   console.log(response)
-    // }, (error) => {
-    //   console.log(error)
-    // })
-
+    const [NumberOfAdults, SetNumberOfAdults] = useState(2)
+    const [NumberOfChildren, SetNumberOfChildren] = useState(0)
+    const [AgeOfChildArray, SetAgeOfChildArray] = useState([])
+    const [StartDateInput, SetStartDateInput] = useState('')
+    const [EndDateInput, SetEndDateInput] = useState('')
+    const [searchInputValueFrom, SetSearchInputValueFrom] = useState('')
+    const [searchInputValueTo, SetSearchInputValueTo] = useState('')
 
     function GetValues(NumberOfAdults, NumberOfChildren, AgeOfChildArray){
       SetNumberOfAdults(NumberOfAdults) 
@@ -44,12 +34,22 @@ function Homepage() {
       SetSearchInputValueTo(searchInputValueTo)
     }
 
-    function SendUserData(){
-      // console.log(NumberOfAdults)
-      // console.log(NumberOfChildren)
+    function SendUserData(e){
+      e.preventDefault()
+      axios.post('http://localhost:4000/get-data', {
+        NumberOfAdults,
+        NumberOfChildren,
+        AgeOfChildArray,
+        StartDateInput,
+        EndDateInput,
+        searchInputValueFrom,
+        searchInputValueTo
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
-
-
+    
     return (
 
         <div className="homepage">
@@ -65,13 +65,14 @@ function Homepage() {
           </p>  
 
           <div className="user-flight-form">
-            <form onSubmit={SendUserData}>
+            <form onSubmit={SendUserData} method="post">
               <Searchinput GetPlaceValue={GetPlaceValue}/>
               <DateRangePicker GetDateValues={GetDateValues}/>
               <Clientnumberinput GetValues={GetValues}/>
               <Button type="submit" className="search-btn" size="large" variant="outlined">Search</Button>
             </form>
           </div>
+
           {console.log(NumberOfAdults, NumberOfChildren, AgeOfChildArray)}
           {console.log(StartDateInput._i, EndDateInput._i)}
           {console.log(searchInputValueFrom, searchInputValueTo)}
