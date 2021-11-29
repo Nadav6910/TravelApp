@@ -38,7 +38,6 @@ function Homepage() {
       e.preventDefault()
       axios.post('http://localhost:4000/get-data', {
         NumberOfAdults,
-        NumberOfChildren,
         AgeOfChildArray,
         StartDateInput,
         EndDateInput,
