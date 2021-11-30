@@ -31,8 +31,12 @@ const duffel = new Duffel({
 //     }
 //   ],
 //   passengers: [{ type: "adult" }, { type: "adult" }, { age: 1 }],
-//   cabin_class: "business"
-// }).then(response => console.log(response.data.offers[0].slices)).catch(err => console.log(err))
+//   cabin_class: "economy"
+// }).then(response => console.log(response.data.offers)).catch(err => console.log(err))
+
+// app.get('/get-data', (req, res) => {
+//   res.send("hello world")
+// })
 
 //Post Routes **
 app.post('/get-data', (req, res) => {
@@ -89,15 +93,20 @@ app.post('/get-data', (req, res) => {
         ],
         passengers: passengersArray,
         cabin_class: "business"
-      }).then(response => console.log(response.data, response.data.offers[0].slices, response.data.offers[0].passengers, response.data.offers[0].conditions, response.data.offers[0].owner)).catch(err => console.log(err))
+      })
+      .then(function(response) {
+        // res.json(response)
+        console.log(response.data.slices)
+      })
+      .catch(err => console.log(err))
 
       // console.log(NumberOfAdults, NumberOfChildren, AgeOfChildArray, StartDateInput, EndDateInput, searchInputValueFrom, searchInputValueTo)
     }).catch(function (error) {
-      console.error(error);
+      console.error(error)
     });
   }).catch(function (error) {
-    console.error(error);
-  });
+    console.error(error)
+  })
 })
 
 // Port Config **
