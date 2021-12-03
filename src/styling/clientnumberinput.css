@@ -294,8 +294,10 @@
 
 .fas.fa-user.open-child-container-icon:hover{
     color: #bdb4b4;
+    cursor: pointer;
 }
 
 .fas.fa-user.open-child-container-icon-animated:hover{
     color: #bdb4b4;
+    cursor: pointer;
 }

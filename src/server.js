@@ -34,10 +34,6 @@ const duffel = new Duffel({
 //   cabin_class: "economy"
 // }).then(response => console.log(response.data.offers)).catch(err => console.log(err))
 
-// app.get('/get-data', (req, res) => {
-//   res.send("hello world")
-// })
-
 //Post Routes **
 app.post('/get-data', (req, res) => {
   let {NumberOfAdults, AgeOfChildArray, StartDateInput, EndDateInput, searchInputValueFrom, searchInputValueTo} = req.body
@@ -92,10 +88,10 @@ app.post('/get-data', (req, res) => {
           }
         ],
         passengers: passengersArray,
-        cabin_class: "business"
+        cabin_class: "economy"
       })
       .then(function(response) {
-        // res.json(response)
+        res.json(response)
         console.log(response.data.slices)
       })
       .catch(err => console.log(err))

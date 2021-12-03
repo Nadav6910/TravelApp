@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
 
+i {
+    color: #ada8a8;
+    position: relative;
+}
+
+hr {
+    opacity: 1;
+}
+
 .homepage{
     text-align: center;
 }
@@ -32,4 +41,141 @@
 
 .css-9y1egq-MuiButtonBase-root-MuiButton-root.search-btn:hover{
     border-color: #ED6C02;
+}
+
+.offers-container{
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin-top: 35px;
+}
+
+.flight-offer{
+    display: inline-grid;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: repeat(1, 600px [col-start]);
+}
+
+.first-flight-container{
+    position: relative;
+    height: 60px;
+    padding-left: 65px;
+    background-color: aliceblue;
+    border-top-right-radius: 25px;
+    grid-column: 1/3;
+    border-right: ridge;
+}
+
+.return-flight-container{
+    position: relative;
+    height: 60px;
+    padding-left: 60px;
+    background-color: aliceblue;
+    border-bottom-right-radius: 25px;
+    grid-column: 1/3;
+    margin-bottom: 0px;
+    border-right: ridge;
+    box-shadow: -7px 20px 20px 0px #888888;
+}
+
+.first-flight-container > .time-origin{
+    left: 47px;
+}
+
+.return-flight-container > .flight-stops{
+    right: 225px;
+}
+
+.flight-line{
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    color: #ada8a8;
+    margin-left: 12px;
+    margin-right: 12px;
+    top: 1rem;
+}
+
+.time-origin{
+    position: relative;
+    top: 1rem;
+    left: 51px;
+}
+
+.IATA-code-origin{
+    position: relative;
+    right: 1%;
+    font-weight: bold;
+}
+
+.time-destenation{
+    position: relative;
+    top: 15px;
+    right: 19px;
+}
+
+.IATA-code-destenation{
+    position: relative;
+    right: 100px;
+    font-weight: bold;
+}
+
+.flight-time{
+    display: inline-block;
+    position: relative;
+    font-size: 10px;
+    bottom: 10px;
+    right: 268px;
+}
+
+.flight-stops{
+    position: relative;
+    font-size: 10px;
+    top: 10px;
+    right: 230px;
+    color: #ED6C02;
+}
+
+.price-and-airline-container{
+    background-color: aliceblue;
+    height: 100%;
+    grid-row: 1/3;
+    border-top-left-radius: 25px;
+    grid-column: 3;
+    border-bottom-left-radius: 25px;
+    border-left: ridge;
+    box-shadow: 5px 20px 20px 0px #888888;
+}
+
+.offer-devider{
+    position: relative;
+    width: calc(100% - 19px);
+    grid-column: 1/3;
+    color: #ada8a8;
+    margin: 0;
+    opacity: 0.5;
+}
+
+.offer-devider-second{
+    position: relative;
+    width: fit-content;
+    grid-column: 3;
+    color: #ada8a8;
+    margin: 0;
+    left: 19px;
+    opacity: 0.5;
+}
+
+.price-header{
+    margin: 0;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.price-number{
+    margin: 0;
+    color: #ED6C02;
 }
