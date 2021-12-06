@@ -19,6 +19,10 @@
     margin-top: 12px;
 }
 
+.name-and-icon-container > svg{
+    margin-bottom: 0.23rem;
+}
+
 .bi {
     color: #ED6C02;
 }

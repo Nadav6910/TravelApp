@@ -48,7 +48,7 @@
     left: 3px;
     margin-top: 5px;
     background-color: #f7f4f4;
-    box-shadow: 3px 3px 3px rgb(185, 184, 184);
+    box-shadow: 11px 11px 20px rgb(185 184 184);
     animation-name: fade-in;
     animation-duration: 1s;
 }
@@ -167,7 +167,7 @@
     height: 118px;
     width: 100px;
     background-color: #f7f4f4;
-    box-shadow: 3px 3px 3px rgb(185, 184, 184);
+    box-shadow: 11px 11px 20px rgb(185 184 184);
     grid-template-columns: repeat(3, 33px [col-start]);
     grid-template-rows: repeat(3, 28px [col-start]);
     animation-name: fade-in-ages;
@@ -203,7 +203,7 @@
     text-align: center;
     align-self: center;
     border-radius: 6px;
-    margin-top: 5px;
+    margin-top: 2px;
 }
 
 .p-hr-container{
@@ -225,6 +225,9 @@
     grid-column-start: span 3;
     align-self: start;
     margin: 0;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 0.1rem;
 } 
 
 .child-age-preview:hover{
