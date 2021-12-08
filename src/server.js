@@ -45,8 +45,8 @@ app.post('/get-data', (req, res) => {
   for (let i = 0; i < NumberOfAdults; i++){
     passengersArray.push({type: "adult"})
   }
-
-  AgeOfChildArray.map(age => passengersArray.push({age: age}))
+  console.log(AgeOfChildArray);
+  AgeOfChildArray.map(age => AgeOfChildArray.length > 0 && passengersArray.push({age: age}))
 
   const airportDataFrom = {
     method: 'GET',

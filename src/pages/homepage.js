@@ -6,17 +6,20 @@ import Searchinput from "../components/Searchinput"
 import DateRangePicker from "../components/Daterangepicker"
 import Clientnumberinput from "../components/Clientnumberinput"
 import Button from '@mui/material/Button'
+import Loading from "../components/Loading"
 import axios from "axios"
 
 function Homepage() {
 
-    const [searchWidowOpen, SetSearchWidowOpen] = useState(false)
+    const [searchWidowOpen, SetSearchWidowOpen] = useState(true)
     const [flightOffersData, SetFlightOffersData] = useState([])
+    const [gotFlightData, setGotFlightData] = useState(false)
     const [infoWindowOpen, setInfoWindowOpen] = useState(false)
     const [arrival, setArrival] = useState('')
     const [departure, setDeparture] = useState('')
     const [airport, setAirport] = useState('')
     const [airline, setAirline] = useState('')
+    const [infoWndowAnimation, setInfoWndowAnimation] = useState(true)
     const [NumberOfAdults, SetNumberOfAdults] = useState(2)
     // const [NumberOfChildren, SetNumberOfChildren] = useState(0)
     const [AgeOfChildArray, SetAgeOfChildArray] = useState([])
@@ -41,10 +44,10 @@ function Homepage() {
       SetSearchInputValueTo(searchInputValueTo)
     }
 
-    function SendUserData(e){
+    async function SendUserData(e){
       e.preventDefault()
       SetSearchWidowOpen(false)
-      
+
       axios.post('http://localhost:4000/get-data', {
         NumberOfAdults,
         AgeOfChildArray,
@@ -52,10 +55,16 @@ function Homepage() {
         EndDateInput,
         searchInputValueFrom,
         searchInputValueTo
-      }).then(function(response) {
-        console.log(response.data)
-        SetFlightOffersData(response.data) 
       })
+      .then(function(response) {
+        SetFlightOffersData(response.data.data.offers)
+        console.log(response.data);
+      })
+
+      .then(() => {
+        setGotFlightData(true)
+      })
+
       .catch(function (error) {
         console.log(error);
       })
@@ -64,10 +73,10 @@ function Homepage() {
     function OpenInfoWindow(e){
       if (e.currentTarget.parentNode.querySelector('.vl2')){
         if (e.currentTarget.className === 'vl'){
-          let arrival = e.currentTarget.parentNode.querySelector('.first-stop').querySelector('.arrival').textContent
-          let departure = e.currentTarget.parentNode.querySelector('.first-stop').querySelector('.departure').textContent
-          let airport = e.currentTarget.parentNode.querySelector('.first-stop').querySelector('.airport').textContent
-          let airline = e.currentTarget.parentNode.querySelector('.first-stop').querySelector('.airline').textContent
+          let arrival = e.currentTarget.parentNode.parentNode.querySelector('.first-stop').querySelector('.arrival').textContent
+          let departure = e.currentTarget.parentNode.parentNode.querySelector('.first-stop').querySelector('.departure').textContent
+          let airport = e.currentTarget.parentNode.parentNode.querySelector('.first-stop').querySelector('.airport').textContent
+          let airline = e.currentTarget.parentNode.parentNode.querySelector('.first-stop').querySelector('.airline').textContent
 
           setArrival(arrival)
           setDeparture(departure)
@@ -75,10 +84,10 @@ function Homepage() {
           setAirline(airline)
         }
         if (e.currentTarget.className === 'vl2'){
-          let arrival = e.currentTarget.parentNode.querySelector('.second-stop').querySelector('.arrival').textContent
-          let departure = e.currentTarget.parentNode.querySelector('.second-stop').querySelector('.departure').textContent
-          let airport = e.currentTarget.parentNode.querySelector('.second-stop').querySelector('.airport').textContent
-          let airline = e.currentTarget.parentNode.querySelector('.second-stop').querySelector('.airline').textContent
+          let arrival = e.currentTarget.parentNode.parentNode.querySelector('.second-stop').querySelector('.arrival').textContent
+          let departure = e.currentTarget.parentNode.parentNode.querySelector('.second-stop').querySelector('.departure').textContent
+          let airport = e.currentTarget.parentNode.parentNode.querySelector('.second-stop').querySelector('.airport').textContent
+          let airline = e.currentTarget.parentNode.parentNode.querySelector('.second-stop').querySelector('.airline').textContent
 
           setArrival(arrival)
           setDeparture(departure)
@@ -98,25 +107,37 @@ function Homepage() {
         setAirline(airline)
       }
 
+      if (infoWndowAnimation === false){
+        setInfoWndowAnimation(true)
+      }
+
       setInfoWindowOpen(true)
       document.querySelector("body").classList.remove("unblurred-body")
       document.querySelector("body").classList.add("app-body")
     }
 
     function CloseInfoWindow(){
-      setInfoWindowOpen(false)
+      setInfoWndowAnimation(false)
       document.querySelector("body").classList.remove("app.body")
       document.querySelector("body").classList.add("unblurred-body")
     }
 
-    // const oldDate = new Date("2021-04-28T13:17:31")
-    // const newDate = new Date("2021-04-29T17:09:07")
-    // const msToTime = (ms) => ({
-    //   hours: Math.trunc(ms/3600000),
-    //   minutes: Math.trunc((ms/3600000 - Math.trunc(ms/3600000))*60) + ((ms/3600000 - Math.trunc(ms/3600000))*60 % 1 !== 0 ? 1 : 0)
-    // })
-    // console.log(msToTime(Math.abs(newDate-oldDate)))
-    
+    function CheckAnimationState(){
+      if (infoWndowAnimation === true){
+        setInfoWindowOpen(true)
+      } else {
+        setInfoWndowAnimation(true)
+        setInfoWindowOpen(false)
+      }
+    }
+
+    function msToTime(ms){
+      return {
+            hours: Math.trunc(ms/3600000),
+            minutes: Math.trunc((ms/3600000 - Math.trunc(ms/3600000))*60) + ((ms/3600000 - Math.trunc(ms/3600000))*60 % 1 !== 0 ? 1 : 0)
+          }
+      }
+      
     return (
 
         <div className="homepage">
@@ -143,162 +164,171 @@ function Homepage() {
             </div> 
           </div> : 
 
+          gotFlightData ? 
+
           <div className="offers-container">
-            <div className="info-window" style={{display: !infoWindowOpen && 'none'}}>
+            <div className="info-window" onAnimationEnd={CheckAnimationState} style={{display: !infoWindowOpen && 'none', animationName: infoWndowAnimation ? 'popup' : 'popdown'}}>
                 <p className="arrival-header">Arrival:<span className="arrival-info">{arrival}</span></p>
                 <p className="departure-header">Departure:<span className="departure-info">{departure}</span></p>
                 <p className="airport-header">Airport:<span className="airport-info">{airport}</span></p>
                 <p className="airline-header">Airline:<span className="airline-info">{airline}</span></p>
             </div>
 
-            {/* {flightOffersData.slice(0, 3).map(offer => {
-              return <div className="flight-offer">
-              
-              </div>
-            })} */}
+            
+            {flightOffersData.reverse().slice(0, 12).map(offer => {
 
-            <div className="flight-offer">
-                <div className="first-flight-container">
-                  <span className="time-origin">11:30 20/12/21</span>
-                  <span className="IATA-code-origin">TLV</span>
+              return <div key={offer.id} className="flight-offer">
+                <div key={offer.slices[0].id} className={offer.slices[0].segments.length === 1 ? "first-flight-container" : offer.slices[0].segments.length === 2 ? "first-flight-container one-stop" : offer.slices[0].segments.length === 3 && "first-flight-container two-stops"}>
+
+                  {offer.slices[0].segments.length === 1 ?
+
+                    null : 
+
+                    offer.slices[0].segments.length === 2 ?
+
+                    <div style={{display: 'none'}}>
+                      <p className="arrival">{offer.slices[0].segments[0].arriving_at.split('T')[1]}</p>
+                      <p className="departure">{offer.slices[0].segments[1].departing_at.split('T')[1]}</p>
+                      <p className="airport">{offer.slices[0].segments[0].destination.city_name + ` (${offer.slices[0].segments[0].destination.iata_city_code})`}</p>
+                      <p className="airline">{offer.slices[0].segments[0].operating_carrier.name}</p>
+                    </div> : 
+                    
+                    offer.slices[0].segments.length === 3 && 
+
+                    <div>
+
+                      <div className="first-stop" style={{display: 'none'}}>
+                        <p className="arrival">{offer.slices[0].segments[0].arriving_at.split('T')[1]}</p>
+                        <p className="departure">{offer.slices[0].segments[1].departing_at.split('T')[1]}</p>
+                        <p className="airport">{offer.slices[0].segments[0].destination.city_name + ` (${offer.slices[0].segments[0].destination.iata_city_code})`}</p>
+                        <p className="airline">{offer.slices[0].segments[0].operating_carrier.name}</p>
+                      </div>
+
+                      <div className="second-stop" style={{display: 'none'}}>
+                        <p className="arrival">{offer.slices[0].segments[1].arriving_at.split('T')[1]}</p>
+                        <p className="departure">{offer.slices[0].segments[2].departing_at.split('T')[1]}</p>
+                        <p className="airport">{offer.slices[0].segments[1].destination.city_name + ` (${offer.slices[0].segments[1].destination.iata_city_code})`}</p>
+                        <p className="airline">{offer.slices[0].segments[1].operating_carrier.name}</p>
+                      </div>
+
+                    </div>}
+
+                  <span className="time-origin">{offer.slices[0].segments[0].departing_at.split('T')[1].slice(0, 5) + ' ' + offer.slices[0].segments[0].departing_at.split('T')[0].replace(offer.slices[0].segments[0].departing_at.split('T')[0].slice(0,4), offer.slices[0].segments[0].departing_at.split('T')[0].slice(2,4))}</span>
+                  <span className="IATA-code-origin">{offer.slices[0].segments[0].origin.iata_city_code}</span>
                   <i className="fas fa-plane-departure"></i>
+
+                  {offer.slices[0].segments.length === 1 ?
+
+                    null :
+
+                  offer.slices[0].segments.length === 2 ?
+
+                    <div className="vl" onMouseEnter={OpenInfoWindow} onMouseLeave={CloseInfoWindow}></div> :
+
+                  offer.slices[0].segments.length === 3 &&
+
+                    <div className="vl-container">
+                      <div className="vl" onMouseEnter={OpenInfoWindow} onMouseLeave={CloseInfoWindow}></div>
+                      <div className="vl2" onMouseEnter={OpenInfoWindow} onMouseLeave={CloseInfoWindow}></div>
+                    </div>}
+
                   <hr className="flight-line" style={{height: '3px'}}/>
                   <i className="fas fa-plane-arrival"></i>
-                  <span className="time-destenation">15:45 20/12/21</span>
-                  <span className="IATA-code-destenation">AMS</span>
-                  <span className="flight-stops">no stop</span>
-                  <span className="flight-time">4h - 15m</span>
-                </div>
-                <div className="return-flight-container">
-                  <span className="time-origin">17:20 25/12/21</span>
-                  <span className="IATA-code-origin">AMS</span>
-                  <i className="fas fa-plane-departure"></i>
-                  <hr className="flight-line" style={{height: '3px'}}/>
-                  <i className="fas fa-plane-arrival"></i>
-                  <span className="time-destenation">21:35 25/12/21</span>
-                  <span className="IATA-code-destenation">TLV</span>
-                  <span className="flight-stops">no stop</span>
-                  <span className="flight-time">4h - 15m</span>
-                </div>
-                <div className="price-and-airline-container">
-                  <p className="price-header">Price:</p>
-                  <p className="price-number">345$</p>
-                  <p className="inbound-airline">Inbound Airline: Lufthansa</p>
-                  <p className="outbound-airline">Outbound Airline: Lufthansa</p>
-                </div>
-                <hr className="offer-devider"/>
-                <hr className="offer-devider-second"/>
-            </div>
+                  <span className="time-destenation">{offer.slices[0].segments.slice(-1)[0].arriving_at.split('T')[1].slice(0, 5) + ' ' + offer.slices[0].segments.slice(-1)[0].arriving_at.split('T')[0].replace(offer.slices[0].segments.slice(-1)[0].arriving_at.split('T')[0].slice(0,4), offer.slices[0].segments.slice(-1)[0].arriving_at.split('T')[0].slice(2, 4))}</span>
+                  <span className="IATA-code-destenation">{offer.slices[0].segments.slice(-1)[0].destination.iata_city_code}</span>
 
-            <div className="flight-offer">
-                <div div className="first-flight-container one-stop">
+                  {offer.slices[0].segments.length === 1 ?
+                    <span className="flight-stops">no stop</span> :
+                   offer.slices[0].segments.length === 2 ?
+                    <span className="flight-stops">one stop</span> :
+                   offer.slices[0].segments.length === 3 &&
+                    <span className="flight-stops">two stops</span>}
+                    {console.log(flightOffersData)}
+                  {offer.slices[0].segments.length === 1 ? <span className="flight-time">{msToTime(new Date(offer.slices[0].segments.slice(-1)[0].arriving_at) - new Date(offer.slices[0].segments[0].departing_at)).hours + 'h - ' + msToTime(new Date(offer.slices[0].segments.slice(-1)[0].arriving_at) - new Date(offer.slices[0].segments[0].departing_at)).minutes + 'm'}</span> : null}
+                </div>
+
+                <div key={offer.slices[1].id} className={offer.slices[1].segments.length === 1 ? "return-flight-container" : offer.slices[1].segments.length === 2 ? "return-flight-container one-stop" : offer.slices[1].segments.length === 3 && "return-flight-container two-stops"}>
+
+
+                {offer.slices[1].segments.length === 1 ?
+
+                null :
+
+                offer.slices[1].segments.length === 2 ?
+
                   <div style={{display: 'none'}}>
-                    <p className="arrival">123 </p>
-                    <p className="departure">123</p>
-                    <p className="airport">123</p>
-                    <p className="airline">123</p>
-                  </div>
-                  <span className="time-origin">11:30 20/12/21</span>
-                  <span className="IATA-code-origin">TLV</span>
-                  <i className="fas fa-plane-departure"></i>
-                  <div className="vl" onMouseEnter={OpenInfoWindow} onMouseLeave={CloseInfoWindow}></div>
-                  <hr className="flight-line" style={{height: '3px'}}/>
-                  <i className="fas fa-plane-arrival"></i>
-                  <span className="time-destenation">15:45 20/12/21</span>
-                  <span className="IATA-code-destenation">AMS</span>
-                  <span className="flight-stops">one stop</span>
-                </div>
-                <div className="return-flight-container one-stop">
-                  <div style={{display: 'none'}}>
-                    <p className="arrival">abs </p>
-                    <p className="departure">abs</p>
-                    <p className="airport">abs</p>
-                    <p className="airline">abs</p>
-                  </div>
-                  <span className="time-origin">17:20 25/12/21</span>
-                  <span className="IATA-code-origin">AMS</span>
-                  <i className="fas fa-plane-departure"></i>
-                  <div className="vl" onMouseEnter={OpenInfoWindow} onMouseLeave={CloseInfoWindow}></div>
-                  <hr className="flight-line" style={{height: '3px'}}/>
-                  <i className="fas fa-plane-arrival"></i>
-                  <span className="time-destenation">21:35 25/12/21</span>
-                  <span className="IATA-code-destenation">TLV</span>
-                  <span className="flight-stops">one stop</span>
-                </div>
-                <div className="price-and-airline-container">
-                  <p className="price-header">Price:</p>
-                  <p className="price-number">345$</p>
-                  <p className="inbound-airline">Inbound Airline: Lufthansa</p>
-                  <p className="outbound-airline">Outbound Airline: Lufthansa</p>
-                </div>
-                <hr className="offer-devider"/>
-                <hr className="offer-devider-second"/>
-            </div>
+                    <p className="arrival">{offer.slices[1].segments[0].arriving_at.split('T')[1]}</p>
+                    <p className="departure">{offer.slices[1].segments[1].departing_at.split('T')[1]}</p>
+                    <p className="airport">{offer.slices[1].segments[0].destination.city_name + ` (${offer.slices[1].segments[0].destination.iata_city_code})`}</p>
+                    <p className="airline">{offer.slices[1].segments[0].operating_carrier.name}</p>
+                  </div> :
 
-            <div className="flight-offer">
-                <div className="first-flight-container two-stops">
-                  <div className="first-stop" style={{display: 'none'}}>
-                    <p className="arrival">tbs </p>
-                    <p className="departure">tbs</p>
-                    <p className="airport">tbs</p>
-                    <p className="airline">tbs</p>
-                  </div>
-                  <div className="second-stop" style={{display: 'none'}}>
-                    <p className="arrival">456 </p>
-                    <p className="departure">456</p>
-                    <p className="airport">456</p>
-                    <p className="airline">456</p>
-                  </div>
-                  <span className="time-origin">11:30 20/12/21</span>
-                  <span className="IATA-code-origin">TLV</span>
-                  <i className="fas fa-plane-departure"></i>
-                  <div className="vl" onMouseEnter={OpenInfoWindow} onMouseLeave={CloseInfoWindow}></div>
-                  <div className="vl2" onMouseEnter={OpenInfoWindow} onMouseLeave={CloseInfoWindow}></div>
-                  <hr className="flight-line" style={{height: '3px'}}/>
-                  <i className="fas fa-plane-arrival"></i>
-                  <span className="time-destenation">15:45 20/12/21</span>
-                  <span className="IATA-code-destenation">AMS</span>
-                  <span className="flight-stops">two stops</span>
-                </div>
-                <div className="return-flight-container two-stops">
-                  <div className="first-stop" style={{display: 'none'}}>
-                      <p className="arrival">ssh </p>
-                      <p className="departure">ssh</p>
-                      <p className="airport">ssh</p>
-                      <p className="airline">ssh</p>
+                offer.slices[1].segments.length === 3 &&
+
+                  <div>
+                    <div className="first-stop" style={{display: 'none'}}>
+                      <p className="arrival">{offer.slices[1].segments[0].arriving_at.split('T')[1]}</p>
+                      <p className="departure">{offer.slices[1].segments[1].departing_at.split('T')[1]}</p>
+                      <p className="airport">{offer.slices[1].segments[0].destination.city_name + ` (${offer.slices[1].segments[0].destination.iata_city_code})`}</p>
+                      <p className="airline">{offer.slices[1].segments[0].operating_carrier.name}</p>
                     </div>
+
                     <div className="second-stop" style={{display: 'none'}}>
-                      <p className="arrival">999 </p>
-                      <p className="departure">999</p>
-                      <p className="airport">999</p>
-                      <p className="airline">999</p>
-                  </div>
-                  <span className="time-origin">17:20 25/12/21</span>
-                  <span className="IATA-code-origin">AMS</span>
+                      <p className="arrival">{offer.slices[1].segments[1].arriving_at.split('T')[1]}</p>
+                      <p className="departure">{offer.slices[1].segments[2].departing_at.split('T')[1]}</p>
+                      <p className="airport">{offer.slices[1].segments[1].destination.city_name + ` (${offer.slices[1].segments[1].destination.iata_city_code})`}</p>
+                      <p className="airline">{offer.slices[1].segments[1].operating_carrier.name}</p>
+                    </div>
+                  
+                </div>}
+
+                  <span className="time-origin">{offer.slices[1].segments[0].departing_at.split('T')[1].slice(0, 5) + ' ' + offer.slices[1].segments[0].departing_at.split('T')[0].replace(offer.slices[1].segments[0].arriving_at.split('T')[0].slice(0,4), offer.slices[1].segments[0].arriving_at.split('T')[0].slice(2,4))}</span>
+                  <span className="IATA-code-origin">{offer.slices[1].segments[0].origin.iata_city_code}</span>
                   <i className="fas fa-plane-departure"></i>
-                  <div className="vl" onMouseEnter={OpenInfoWindow} onMouseLeave={CloseInfoWindow}></div>
-                  <div className="vl2" onMouseEnter={OpenInfoWindow} onMouseLeave={CloseInfoWindow}></div>
+
+                  {offer.slices[1].segments.length === 1 ?
+
+                    null :
+
+                  offer.slices[1].segments.length === 2 ?
+
+                    <div className="vl" onMouseEnter={OpenInfoWindow} onMouseLeave={CloseInfoWindow}></div> :
+
+                  offer.slices[1].segments.length === 3 &&
+
+                    <div className="vl-container">
+                      <div className="vl" onMouseEnter={OpenInfoWindow} onMouseLeave={CloseInfoWindow}></div>
+                      <div className="vl2" onMouseEnter={OpenInfoWindow} onMouseLeave={CloseInfoWindow}></div>
+                    </div>}
+
                   <hr className="flight-line" style={{height: '3px'}}/>
                   <i className="fas fa-plane-arrival"></i>
-                  <span className="time-destenation">21:35 25/12/21</span>
-                  <span className="IATA-code-destenation">TLV</span>
-                  <span className="flight-stops">two stops</span>
+                  <span className="time-destenation">{offer.slices[1].segments.slice(-1)[0].arriving_at.split('T')[1].slice(0, 5) + ' ' + offer.slices[1].segments.slice(-1)[0].arriving_at.split('T')[0].replace(offer.slices[1].segments.slice(-1)[0].arriving_at.split('T')[0].slice(0,4), offer.slices[1].segments.slice(-1)[0].arriving_at.split('T')[0].slice(2, 4))}</span>
+                  <span className="IATA-code-destenation">{offer.slices[1].segments.slice(-1)[0].destination.iata_city_code}</span>
+
+                  {offer.slices[1].segments.length === 1 ?
+                    <span className="flight-stops">no stop</span> :
+                   offer.slices[1].segments.length === 2 ?
+                    <span className="flight-stops">one stop</span> :
+                   offer.slices[1].segments.length === 3 &&
+                    <span className="flight-stops">two stops</span>}
+
+                  {offer.slices[1].segments.length === 1 ? <span className="flight-time">{msToTime(new Date(offer.slices[1].segments.slice(-1)[0].arriving_at) - new Date(offer.slices[1].segments[0].departing_at)).hours + 'h -' + msToTime(new Date(offer.slices[1].segments.slice(-1)[0].arriving_at) - new Date(offer.slices[1].segments[0].departing_at)).minutes + 'm'}</span> : null}
                 </div>
+
                 <div className="price-and-airline-container">
                   <p className="price-header">Price:</p>
-                  <p className="price-number">345$</p>
-                  <p className="inbound-airline">Inbound Airline: Lufthansa</p>
-                  <p className="outbound-airline">Outbound Airline: Lufthansa</p>
+                  <p className="price-number">{offer.base_amount + '$'}</p>
+                  <p className="inbound-airline">Inbound Airline:<span className="airline-span">{offer.slices[0].segments[0].operating_carrier.name}</span></p>
+                  <p className="outbound-airline">Outbound Airline:<span className="airline-span">{offer.slices[1].segments.slice(-1)[0].operating_carrier.name}</span></p>
                 </div>
+
                 <hr className="offer-devider"/>
                 <hr className="offer-devider-second"/>
-            </div>
-          </div>}
+              </div>
+            })} 
+          </div> : <Loading/>}
           
-
-          {/* {console.log(NumberOfAdults, NumberOfChildren, AgeOfChildArray)}
-          {console.log(StartDateInput._i, EndDateInput._i)}
-          {console.log(searchInputValueFrom, searchInputValueTo)} */}
           <Footer/>
         </div>
       )
