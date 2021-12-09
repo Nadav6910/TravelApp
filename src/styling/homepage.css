@@ -24,7 +24,7 @@ hr {
 .about-us{
     text-align: center;
     margin-top: 50px;
-    margin-bottom: 180px;
+    margin-bottom: 160px;
     margin-left: 70px;
     margin-right: 70px;
     font-family: 'Source Sans Pro', sans-serif;
@@ -360,3 +360,28 @@ hr {
     width: 8rem;
     margin: auto;
 }
+
+@media screen and (max-width: 944px) {
+    .css-9y1egq-MuiButtonBase-root-MuiButton-root.search-btn{
+        display: block;
+        margin: auto;
+    }
+  }
+
+@media screen and (min-width: 523px) and (max-width: 944px) {
+    .about-us{
+        margin-bottom: 100px;
+    }
+}
+
+@media screen and (max-width: 522px) {
+    .about-us {
+      margin-top: 3rem;
+      margin-bottom: 2.3rem;
+    }
+
+    .css-9y1egq-MuiButtonBase-root-MuiButton-root.search-btn{
+        display: block;
+        margin: auto;
+    }
+  }

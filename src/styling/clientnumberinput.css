@@ -1,3 +1,8 @@
+:root {
+    --upvalue: 5px;
+    --downvalue: 50px;
+  }
+
 .client-number-container{
     display: inline-block;
     margin-left: 1px;
@@ -55,24 +60,24 @@
 
 @keyframes fade-in {
     from {
-        margin-top: 50px;
+        margin-top: var(--downvalue);
         opacity: 0.1;
       }
     
       to {
-        margin-top: 5px;
+        margin-top: var(--upvalue);
         opacity: 1;
       }
   }
 
 @keyframes fade-out {
     from {
-        margin-top: 5px;
+        margin-top: var(--upvalue);
         opacity: 1;
       }
     
       to {
-        margin-top: 50px;
+        margin-top: var(--downvalue);
         opacity: 0.1;
       }
   }
@@ -303,4 +308,129 @@
 .fas.fa-user.open-child-container-icon-animated:hover{
     color: #bdb4b4;
     cursor: pointer;
+}
+
+@media screen and (max-width: 944px) {
+    .select-number-container{
+        position: fixed;
+        margin-left: 0.2rem;
+        left: unset;
+    }
+}
+
+@media screen and (max-width: 944px) and (min-width: 834px) {
+    .chosen-children-ages-container{
+        left: -165px;
+    }
+}
+
+@media screen and (min-width: 523px) and (max-width: 944px) {
+    .number-input{
+        width: 18.8rem;
+        letter-spacing: 0.05rem;
+        padding: 6.5px 55px 6.5px;
+    }
+
+    .client-number-container{
+        margin-right: 0.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .select-number-container{
+        position: fixed;
+        z-index: 1;
+        top: 18.5rem;
+        left: 29%;
+        margin: auto;
+    }
+
+    :root {
+        --upvalue: 0px;
+        --downvalue: -100px;
+    }
+}
+
+@media screen and (max-width: 522px) {
+    .number-input{
+        width: 18.8rem;
+        margin-right: -2rem;
+        letter-spacing: 0.05rem;
+        padding: 6.5px 55px 6.5px;
+    }
+
+    .client-number-container{
+        margin-bottom: 1rem;
+    }
+
+    .select-number-container{
+        position: fixed;
+        z-index: 1;
+        top: 16rem;
+        left: 29%;
+        margin: auto;
+    }
+
+    :root {
+        --upvalue: 0px;
+        --downvalue: -100px;
+    }
+}
+
+@media screen and (min-width: 545px) and (max-width: 615px) {
+    .select-number-container{
+        left: 32%;
+    }
+}
+
+@media screen and (min-width: 616px) and (max-width: 645px) {
+    .select-number-container{
+        left: 32%;
+        top: 17.3rem;
+    }
+}
+
+@media screen and (min-width: 645px) and (max-width: 750px) {
+    .select-number-container{
+        left: 35%;
+        top: 17.3rem;
+    }
+}
+
+@media screen and (min-width: 751px) and (max-width: 895px) {
+    .select-number-container{
+        left: 35%;
+        top: 17.3rem;
+    }
+}
+
+@media screen and (min-width: 896px) and (max-width: 944px) {
+    .select-number-container{
+        left: 37%;
+        top: 17.3rem;
+    }
+}
+
+@media screen and (min-width: 897px) and (max-width: 944px) {
+    .select-number-container{
+        top: 16rem;
+    }
+}
+
+@media screen and (min-width: 780px) and (max-width: 895px) {
+    .select-number-container{
+        left: 38%;
+        
+    }
+}
+
+@media screen and (max-width: 443px) {
+    .select-number-container{
+        left: 25%;
+    }
+}
+
+@media screen and (min-width: 521px) and (max-width: 522px) {
+    .select-number-container{
+        top: 14.6rem;
+    }
 }
