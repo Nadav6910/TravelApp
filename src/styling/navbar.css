@@ -32,3 +32,9 @@
         font-size: 35px;
     }
   }
+
+  @media screen and (max-width: 404px) {
+    .navbar-container{
+        width: 46rem;
+    }
+  }

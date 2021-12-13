@@ -5,7 +5,7 @@ export default function Loading(){
     return (
         <div className="loading-div">
             <h4 className="loading-header">Fetching Flights From Around The World For You..</h4>
-            <FillingBottle color="#ED6C02" width="6rem" height="6rem"/>
+            <FillingBottle color="#ED6C02" width="5rem" height="5rem"/>
         </div>
     )
 }

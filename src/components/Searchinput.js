@@ -50,7 +50,7 @@ export default function Searchinput(props) {
             className="search-input-to" 
             ref={toRef}
             placeholder="To.."></input>
-            {searchInputValueTo.length > 0 ? <i onClick={DeleteTextTo} className="fas fa-times-circle"></i> : <i className="fas fa-plane-arrival"></i>}
+            {searchInputValueTo.length > 0 ? <i onClick={DeleteTextTo} className="fas fa-times-circle"></i> : <i className="fas fa-plane-arrival" style={{'left': '-2px'}}></i>}
         </div>
         
     )

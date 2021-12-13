@@ -165,15 +165,15 @@ hr {
 }
 
 .first-flight-container.one-stop > .flight-stops{
-    right: 232px;
+    right: 14.8rem;
 }
 
 .first-flight-container.two-stops > .flight-stops{
-    right: 14.7rem;
+    right: 15.1rem;
 }
 
 .return-flight-container.two-stops > .flight-stops{
-    right: 14.4rem;
+    right: 14.8rem;
 }
 
 .return-flight-container.one-stop > .flight-stops{
@@ -385,3 +385,179 @@ hr {
         margin: auto;
     }
   }
+
+@media screen and (min-width: 641px) and (max-width: 795px) {
+    .flight-offer{
+        grid-template-columns: min-content;
+    }
+
+    .first-flight-container{
+        border-top-right-radius: unset;
+        border-right: unset;
+    }
+
+    .return-flight-container{
+        border-bottom-right-radius: unset;
+        border-right: unset;
+        box-shadow: unset;
+    }
+
+    .price-and-airline-container{
+        border-top-left-radius: unset;
+        border-bottom-left-radius: unset;
+        border-left: unset;
+        box-shadow: unset;
+    }
+
+    .offer-devider{
+        width: 100%;
+    }
+
+    .offer-devider-second{
+        width: unset;
+        left: unset;
+    }
+}
+
+@media screen and (min-width: 455px) and (max-width: 641px) {
+    .first-flight-container > .flight-line{
+    right: 3.4rem;
+}
+
+    .return-flight-container > .flight-line{
+        right: 3.4rem;
+    }
+}
+
+@media screen and (min-width: 405px) and (max-width: 641px) {
+    .first-flight-container{
+        padding-left: 0;
+        padding-right: 0;
+        border-top-right-radius: unset;
+        border-right: unset;
+    }
+
+    .first-flight-container > .time-origin{
+        left: unset;
+    }
+
+    .first-flight-container.two-stops, .first-flight-container.one-stop{
+        padding-left: unset;
+    }
+
+    .first-flight-container.two-stops > .flight-stops, .return-flight-container.two-stops > .flight-stops{
+        right: 0.6rem;
+    }
+
+    .return-flight-container{
+        padding-left: 0;
+        padding-right: 0;
+        border-bottom-right-radius: unset;
+        border-right: unset;
+        box-shadow: unset;
+    }
+
+    .return-flight-container.one-stop{
+        padding-left: unset;
+    }
+
+    .return-flight-container.two-stops{
+        padding-left: 0;
+    }
+
+    .return-flight-container > .flight-line{
+        right: 3.2rem;
+
+    }
+
+    .time-origin{
+        left: unset;
+        font-size: 0.6rem;
+    }
+
+    .time-destenation{
+        bottom: unset;
+        right: unset;
+        top: unset;
+        left: 6.2rem;
+        font-size: 0.6rem;
+        display: inherit;
+    }
+
+    .IATA-code-origin{
+        right: 17%;
+    }
+
+    .IATA-code-destenation{
+        z-index: 1;
+        left: 7.8rem;
+        bottom: 2.3rem;
+    }
+
+    .fas{
+        right: 15%;
+    }
+
+    .first-flight-container.two-stops > .vl-container > .vl{
+        right: 0.5rem;
+        left: unset;
+    }
+
+    .first-flight-container.two-stops > .vl-container > .vl2{
+        left: 2.3rem;
+    }
+
+    .return-flight-container.one-stop > .vl-container > .vl, .return-flight-container.one-stop > .vl{
+        left: 0.6rem;
+    }
+
+    .first-flight-container.one-stop > .vl-container > .vl, .first-flight-container.one-stop > .vl{
+        left: 0.6rem;
+    }
+
+    .return-flight-container.two-stops > .vl-container > .vl{
+        left: unset;
+        right: 0.6rem;
+    }
+
+    .return-flight-container.two-stops > .vl-container > .vl2{
+        left: 2.2rem;
+    }
+
+    .flight-line{
+        right: 18%;
+    }
+
+    i.fa-plane-arrival.fas{
+        left: -3.5rem;
+    }
+
+    .flight-stops{
+        bottom: 1.5rem;
+        top: unset;
+    }
+
+    .return-flight-container.one-stop > .flight-stops , .first-flight-container.one-stop > .flight-stops{
+        right: 0.5rem;
+    }
+
+    .flight-offer{
+        grid-template-columns: min-content;
+    }
+
+    .price-and-airline-container{
+        border-top-left-radius: unset;
+        border-bottom-left-radius: unset;
+        border-left: unset;
+        box-shadow: unset;
+    }
+
+    .offer-devider{
+        width: 100%;
+    }
+
+    .offer-devider-second{
+        width: unset;
+        left: unset;
+    }
+}
