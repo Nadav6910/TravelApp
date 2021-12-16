@@ -99,11 +99,11 @@ hr {
 }
 
 .return-flight-container.two-stops{
-    padding-left: 14px;
+    padding-left: 20px;
 }
 
 .return-flight-container.one-stop{
-    padding-left: 10px;
+    padding-left: 18px;
 }
 
 .first-flight-container > .time-origin{
@@ -359,7 +359,27 @@ hr {
     position: relative;
     width: 8rem;
     margin: auto;
+    white-space: nowrap;
 }
+
+.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButtonBase-root.more-results-btn.css-1e6y48t-MuiButtonBase-root-MuiButton-root{
+    margin-top: 1.6rem;
+    color: #26479f;
+}
+
+button.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButtonBase-root.return-to-search-btn.css-1e6y48t-MuiButtonBase-root-MuiButton-root{
+    color: #ed6b04;
+    background-color: #3859af;
+    float: right;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-top: -0.25rem;
+}
+
+button.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButtonBase-root.return-to-search-btn.css-1e6y48t-MuiButtonBase-root-MuiButton-root:hover{
+    background-color: #5574c2;
+}
+
 
 @media screen and (max-width: 944px) {
     .css-9y1egq-MuiButtonBase-root-MuiButton-root.search-btn{
@@ -457,6 +477,10 @@ hr {
         box-shadow: unset;
     }
 
+    .return-flight-container > .flight-stops{
+        right: -0.8rem;
+    }
+
     .return-flight-container.one-stop{
         padding-left: unset;
     }
@@ -492,6 +516,10 @@ hr {
         z-index: 1;
         left: 7.8rem;
         bottom: 2.3rem;
+    }
+
+    .IATA-code-destenation.no-stops{
+        left: 9rem;
     }
 
     .fas{
@@ -535,6 +563,12 @@ hr {
     .flight-stops{
         bottom: 1.5rem;
         top: unset;
+        right: -0.8rem;
+    }
+
+    .flight-time{
+        bottom: 3rem;
+        right: 1.7rem;
     }
 
     .return-flight-container.one-stop > .flight-stops , .first-flight-container.one-stop > .flight-stops{
